@@ -175,31 +175,6 @@ VALUES
   ('Station Castors', 'Ligne 20'),
   ('Avenue Cheikh Ahmadou Bamba', 'Ligne 20'),
   ('Cité Port', 'Ligne 20'),
-  ('Cité Port', 'Ligne 21'),
-  ('Station Cambérène', 'Ligne 21'),
-  ('Terminus Cambérène', 'Ligne 21'),
-  ('Allées Cheikh Sidate', 'Ligne 21'),
-  ('Allées Cheikh Sidate (Niary Tally)', 'Ligne 21'),
-  ('Sacré Cœur 3 Pyrotechnie', 'Ligne 21'),
-  ('Sacré Cœur 3 Telecom', 'Ligne 21'),
-  ('Sacré Cœur 3 Poste', 'Ligne 21'),
-  ('Sacré Cœur 3', 'Ligne 21'),
-  ('Point E', 'Ligne 21'),
-  ('Télécentre', 'Ligne 21'),
-  ('Sacré Cœur 3', 'Ligne 21'),
-  ('Route de l’Aéroport', 'Ligne 21'),
-  ('Yoff Mamelles', 'Ligne 21'),
-  ('Rue Aimé Césaire', 'Ligne 21'),
-  ('Corniche Est', 'Ligne 21'),
-  ('Yoff', 'Ligne 21'),
-  ('Terminus Yoff', 'Ligne 21'),
-  ('Keur Massar', 'Ligne 22'),
-  ('Cité Africaine', 'Ligne 22'),
-  ('Diamaguène', 'Ligne 22'),
-  ('Diamaguène Sicap Mbao', 'Ligne 22'),
-  ('Cité Lamine Guèye', 'Ligne 22'),
-  ('Village Malick', 'Ligne 22'),
-  ('Terminus Malick', 'Ligne 22'),
   ('Ouakam', 'Ligne 23'),
   ('Village Des Pêcheurs', 'Ligne 23'),
   ('Terminus Ouakam', 'Ligne 23'),
@@ -546,3 +521,187 @@ VALUES
 ('corniche Ouest', 'Ligne 402'),
 ('Yoff APECSY', 'Ligne 402'),
 ('Cité Gadaye', 'Ligne 402');
+
+INSERT INTO bus (nom_long, ligne)
+VALUES
+('Liberté 5', 'Ligne 13'),
+('Palais 2', 'Ligne 13'),
+('Terminus Dieuppeul', 'Ligne 13'),
+('Avenue Cheikh Ahmadou Bamba (ex rue 13 Prolongée)', 'Ligne 13'),
+('Station Castors', 'Ligne 13'),
+('Cité Port', 'Ligne 13'),
+('Lycée Kennedy', 'Ligne 13'),
+('Bld Général De Gaule', 'Ligne 13'),
+('Allées Papa Guèye Fall', 'Ligne 13'),
+('Avenue Faidherbe', 'Ligne 13'),
+('Esso Port', 'Ligne 13'),
+('Place de l’Indépendance', 'Ligne 13'),
+('Avenue Léopold Sédar Senghor', 'Ligne 13'),
+('Avenue Nelson Mandela', 'Ligne 13'),
+('Palais 2', 'Ligne 13');
+
+INSERT INTO bus (nom_long, ligne)
+VALUES
+('Daroukhane', 'Ligne 2'),
+('Corniche-Hamo', 'Ligne 2'),
+('Terminus Guédiawaye', 'Ligne 2'),
+('Marché Sahm', 'Ligne 2'),
+('Ecole Canada', 'Ligne 2'),
+('Route des Niayes', 'Ligne 2'),
+('Tally Boumack (route de l’Ouest)', 'Ligne 2'),
+('Route Nationale n° 1', 'Ligne 2'),
+('Autoroute', 'Ligne 2'),
+('Cité des Eaux', 'Ligne 2'),
+('Avenue Bourguiba', 'Ligne 2'),
+('Avenue Cheikh Ahmadou Bamba (ex Rue 13 Prolongée)', 'Ligne 2'),
+('Bld Général De Gaule', 'Ligne 2'),
+('Rue 25', 'Ligne 2'),
+('Avenue Blaise Diagne', 'Ligne 2'),
+('Avenue Jean Jaurès', 'Ligne 2'),
+('Avenue Georges Pompidou', 'Ligne 2'),
+('Place de l’Indépendance', 'Ligne 2'),
+('Esso Port', 'Ligne 2'),
+('Place Leclerc', 'Ligne 2');
+
+INSERT INTO bus (nom_long, ligne)
+VALUES
+('Cambéréne 2', 'Ligne 6'),
+('Cambéréne village', 'Ligne 6'),
+('Case', 'Ligne 6'),
+('Route des Niayes', 'Ligne 6'),
+('Police des Parcelles Assainies', 'Ligne 6'),
+('Marché Grand-Médine', 'Ligne 6'),
+('Cité Keur Damel', 'Ligne 6'),
+('VDN Sipres', 'Ligne 6'),
+('Camp Pénal', 'Ligne 6'),
+('Derklé', 'Ligne 6'),
+('Liberté 5', 'Ligne 6'),
+('Allées Khalifa Ababacar Sy', 'Ligne 6'),
+('Jet d’Eau', 'Ligne 6'),
+('Niary Tally', 'Ligne 6'),
+('Enam', 'Ligne 6'),
+('Bld Général De Gaule', 'Ligne 6'),
+('Allées Papa Guèye Fall', 'Ligne 6'),
+('Avenue Faidherbe', 'Ligne 6'),
+('Avenue Lamine Guèye', 'Ligne 6'),
+('Avenue André Peytavin', 'Ligne 6'),
+('Avenue Jean Jaurès', 'Ligne 6'),
+('Bld de la République', 'Ligne 6'),
+('Avenue Nelson Mandela', 'Ligne 6'),
+('Palais 2', 'Ligne 6');
+
+INSERT INTO bus (nom_long, ligne)
+VALUES
+('Guédiawaye', 'Ligne 5'),
+('Route de la Corniche', 'Ligne 5'),
+('Cité des Enseignants', 'Ligne 5'),
+('Maison du PAI', 'Ligne 5'),
+('Cité Hlm', 'Ligne 5'),
+('Golf', 'Ligne 5'),
+('Route des Niayes', 'Ligne 5'),
+('Police de Parcelles Assainies', 'Ligne 5'),
+('Pont du Stade Léopold Sédar Senghor (Echangeur)', 'Ligne 5'),
+('Patte d’Oie', 'Ligne 5'),
+('Autoroute', 'Ligne 5'),
+('Passage Cyrnos', 'Ligne 5'),
+('Avenue Lamine Guèye', 'Ligne 5'),
+('Avenue André Peytavin', 'Ligne 5'),
+('Avenue Jean Jaurès', 'Ligne 5'),
+('Bld de la République', 'Ligne 5'),
+('Avenue Léopold Sédar Senghor', 'Ligne 5'),
+('Avenue Nelson Mandela', 'Ligne 5'),
+('Palais de Justice 1', 'Ligne 5');
+
+INSERT INTO bus (nom_long, ligne)
+VALUES
+('PA', 'Ligne 403'),
+('Hôpital Dalal Diam', 'Ligne 403'),
+('Itinéraire 227', 'Ligne 403'),
+('2 voies Jaxaay', 'Ligne 403'),
+('Sedima', 'Ligne 403'),
+('Péage', 'Ligne 403'),
+('AIBD', 'Ligne 403'),
+('Parcelles vers Sphère', 'Ligne 403');
+
+INSERT INTO bus (nom_long, ligne)
+VALUES
+('Leclerc', 'Ligne 404A'),
+('Ave Albert Sarraut', 'Ligne 404A'),
+('Itinéraire ligne 13', 'Ligne 404A'),
+('Colobane', 'Ligne 404A'),
+('Autoroute à Péage', 'Ligne 404A'),
+('Diamniadio', 'Ligne 404A'),
+('Itinéraire ligne 228', 'Ligne 404A'),
+('Diass', 'Ligne 404A'),
+('Croisement Kiréne', 'Ligne 404A'),
+('Croisement zone fret', 'Ligne 404A'),
+('AIBD', 'Ligne 404A');
+
+INSERT INTO bus (nom_long, ligne)
+VALUES
+('Leclerc', 'Ligne 404B'),
+('Ave Albert Sarraut', 'Ligne 404B'),
+('Itinéraire ligne 13', 'Ligne 404B'),
+('Colobane', 'Ligne 404B'),
+('Autoroute à Péage', 'Ligne 404B'),
+('Poste Thiaroye', 'Ligne 404B'),
+('itinéraire ligne 402', 'Ligne 404B'),
+('AIBD', 'Ligne 404B');
+
+INSERT INTO bus (nom_long, ligne)
+VALUES
+('Dieuppeul', 'Ligne 405'),
+('Jet D’eau', 'Ligne 405'),
+('Bourguiba', 'Ligne 405'),
+('Allées Seydou Nourou Tall', 'Ligne 405'),
+('Canal 4', 'Ligne 405'),
+('Autoroute', 'Ligne 405'),
+('Péage', 'Ligne 405'),
+('AIBD', 'Ligne 405');
+
+INSERT INTO bus (nom_long, ligne)
+VALUES
+('Guédiawaye', 'Ligne 12'),
+('Cité des Enseignants', 'Ligne 12'),
+('Maison du PAI', 'Ligne 12'),
+('Hlm Guédiawaye', 'Ligne 12'),
+('Domaine de Guédiawaye', 'Ligne 12'),
+('Lycée Canada', 'Ligne 12'),
+('Route des Niayes', 'Ligne 12'),
+('Tally Boubess', 'Ligne 12'),
+('Marché poissons', 'Ligne 12'),
+('Route de Rufisque', 'Ligne 12'),
+('Capa', 'Ligne 12'),
+('TP Cap Vert', 'Ligne 12'),
+('Cité des Eaux', 'Ligne 12'),
+('Avenue Bourguiba', 'Ligne 12'),
+('Relais Avenue Cheikh Anta Diop (Hôpital Fann)', 'Ligne 12'),
+('Avenue Blaise Diagne', 'Ligne 12'),
+('Avenue Jean Jaurès', 'Ligne 12'),
+('Bld de la République', 'Ligne 12'),
+('Avenue Léopold Sédar Senghor', 'Ligne 12'),
+('Avenue Nelson Mandela', 'Ligne 12'),
+('Palais de Justice', 'Ligne 12');
+
+INSERT INTO bus (nom_long, ligne)
+VALUES
+('Scat Urbam', 'Ligne 121'),
+('Mairie grand Yoff', 'Ligne 121'),
+('Cité Cse', 'Ligne 121'),
+('Les deux voies de Sipres', 'Ligne 121'),
+('Les deux voies de Liberté 6', 'Ligne 121'),
+('Collège Sacré Cœur', 'Ligne 121'),
+('Sicap rue 10', 'Ligne 121'),
+('Lycée Blaise Diagne', 'Ligne 121'),
+('Place ONU', 'Ligne 121'),
+('Canal 4', 'Ligne 121'),
+('HLM Fass', 'Ligne 121'),
+('Travaux communaux', 'Ligne 121'),
+('Rue 22 prolongée', 'Ligne 121'),
+('Rts', 'Ligne 121'),
+('Allées Papa Guèye Fall', 'Ligne 121'),
+('Avenue Faidherbe', 'Ligne 121'),
+('Place de l’indépendance', 'Ligne 121'),
+('Albert Sarraut', 'Ligne 121'),
+('Terminus Leclerc', 'Ligne 121');
+
