@@ -12,16 +12,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
-public class MapViewer extends JFrame {
+public class MapViewer extends JPanel {
 
     private JXMapViewer mapViewer;
     private Point startPoint;
     private double moveScale = 0.001; // Facteur d'échelle pour le déplacement plus lent
 
     public MapViewer() {
-        setTitle("OpenStreetMap");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setLayout(new BorderLayout());
 
         // Création du JXMapViewer
         mapViewer = new JXMapViewer();
@@ -40,8 +38,8 @@ public class MapViewer extends JFrame {
         DefaultTileFactory tileFactory = new DefaultTileFactory(info);
         mapViewer.setTileFactory(tileFactory);
 
-        // Ajout du JXMapViewer à la fenêtre
-        getContentPane().add(mapViewer, BorderLayout.CENTER);
+        // Ajout du JXMapViewer au panneau
+        add(mapViewer, BorderLayout.CENTER);
 
         // Ajout d'un écouteur de souris pour détecter les clics sur la carte
         mapViewer.addMouseListener(new MouseAdapter() {
@@ -49,6 +47,8 @@ public class MapViewer extends JFrame {
             public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     startPoint = e.getPoint();
+                    GeoPosition position = mapViewer.convertPointToGeoPosition(startPoint);
+                    System.out.println("Coordonnées : Latitude = " + position.getLatitude() + ", Longitude = " + position.getLongitude());
                 }
             }
 
@@ -115,7 +115,12 @@ public class MapViewer extends JFrame {
         buttonPanel.add(zoomInButton);
         buttonPanel.add(zoomOutButton);
 
-        getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        // Centrer la carte sur Dakar
+        double dakarLatitude = 14.6927;
+        double dakarLongitude = -17.4467;
+        mapViewer.setCenterPosition(new GeoPosition(dakarLatitude, dakarLongitude));
     }
 
     public void setMarker(double latitude, double longitude) {
@@ -127,11 +132,18 @@ public class MapViewer extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            MapViewer mapViewer = new MapViewer();
-            mapViewer.setVisible(true);
+            JFrame frame = new JFrame();
+            frame.setTitle("OpenStreetMap");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(800, 600);
 
-            // Exemple d'utilisation : Centrer la carte sur Paris
-            mapViewer.setMarker(48.8566, 2.3522); // Paris
+            MapViewer mapViewer = new MapViewer();
+            frame.getContentPane().add(mapViewer);
+
+            frame.setVisible(true);
+
+            // Exemple d'utilisation : Centrer la carte sur Dakar, Sénégal
+            mapViewer.setMarker(14.7167, -17.4677); // Dakar, Sénégal
         });
     }
 }
