@@ -187,7 +187,67 @@ public class App extends JFrame {
                         // Modification de la taille de la police dans la JTable
                         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
                         Font font = renderer.getFont();
-                        Font newFont = font.deriveFont(font.getSize() + 2f); // Augmenter la taille de la police
+                        Font newFont = font.deriveFont(font.getSize() + 1f); // Augmenter la taille de la police
+                        resultTable.setFont(newFont);
+
+
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+
+                if (changes >= 3) {
+                    try {
+                        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
+                        String query3 = "SELECT distinct A.nom_long, A.ligne, B2.nom_long, B2.ligne, C2.nom_long, C2.ligne, D.nom_long \n" +
+                                "FROM bus as A, bus as B1, bus as B2, bus as C1, bus as C2, bus as D \n" +
+                                "WHERE A.nom_long = '" + from + "'" + " AND A.ligne = B1.ligne AND B1.nom_long = B2.nom_long AND B2.ligne = C1.ligne AND C1.nom_long = C2.nom_long AND C2.ligne = D.ligne AND D.nom_long = '" + to +  "'" +  "AND A.ligne <> B2.ligne AND B2.ligne <> C2.ligne AND A.ligne <> C2.ligne AND A.nom_long <> B1.nom_long AND B2.nom_long <> C1.nom_long AND C2.nom_long <> D.nom_long; \n" ;
+                        Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery(query3);
+
+
+
+// Création du modèle de table pour les résultats
+                        DefaultTableModel tableModel = new DefaultTableModel();
+                        tableModel.addColumn("From");
+                        tableModel.addColumn("Line 1");
+                        tableModel.addColumn("Change 1");
+                        tableModel.addColumn("Line 2");
+                        tableModel.addColumn("Change 2");
+                        tableModel.addColumn("Line 3");
+                        tableModel.addColumn("To");
+
+// Ajout des résultats au modèle de table
+                        while (resultSet.next()) {
+                            String column1 = resultSet.getString("A.nom_long");
+
+                            String column2 = resultSet.getString("A.ligne");
+
+                            String column3 = resultSet.getString("B2.nom_long");
+
+                            String column4 = resultSet.getString("B2.ligne");
+
+                            String column5 = resultSet.getString("C2.nom_long");
+
+                            String column6 = resultSet.getString("C2.ligne");
+
+                            String column7 = resultSet.getString("D.nom_long");
+
+                            tableModel.addRow(new Object[]{column1, column2, column3, column4, column5,column6,column7});
+                        }
+
+
+                        resultSet.close();
+                        statement.close();
+                        connection.close();
+
+                        // Mise à jour de la JTable avec le modèle de table
+                        resultTable.setModel(tableModel);
+
+                        // Modification de la taille de la police dans la JTable
+                        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+                        Font font = renderer.getFont();
+                        Font newFont = font.deriveFont(font.getSize() + 1f); // Augmenter la taille de la police
                         resultTable.setFont(newFont);
 
 
