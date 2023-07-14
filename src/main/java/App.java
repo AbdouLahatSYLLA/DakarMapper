@@ -88,7 +88,7 @@ public class App extends JFrame {
                         // Modification de la taille de la police dans la JTable
                         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
                         Font font = renderer.getFont();
-                        Font newFont = font.deriveFont(font.getSize() + 2f); // Augmenter la taille de la police
+                        Font newFont = font.deriveFont(font.getSize() + 1f); // Augmenter la taille de la police
                         resultTable.setFont(newFont);
 
 
@@ -97,49 +97,6 @@ public class App extends JFrame {
                     }
                 }
 
-
-
-                if (changes >= 1) {
-                    try {
-                        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
-                        String query = "SELECT DISTINCT A.nom_long, A.ligne, B.nom_long " +
-                                "FROM bus as A, bus as B " +
-                                "WHERE B.nom_long = '" + to + "' AND A.nom_long = '" + from + "' AND A.ligne = B.ligne ;";
-                        Statement statement = connection.createStatement();
-                        ResultSet resultSet = statement.executeQuery(query);
-
-                        // Création du modèle de table pour les résultats
-                        DefaultTableModel tableModel = new DefaultTableModel();
-                        tableModel.addColumn("From");
-                        tableModel.addColumn("Line");
-                        tableModel.addColumn("To");
-
-                        // Ajout des résultats au modèle de table
-                        while (resultSet.next()) {
-                            String fromStation = resultSet.getString("A.nom_long");
-                            String line = resultSet.getString("A.ligne");
-                            String toStation = resultSet.getString("B.nom_long");
-                            tableModel.addRow(new Object[]{fromStation, line, toStation});
-                        }
-
-                        resultSet.close();
-                        statement.close();
-                        connection.close();
-
-                        // Mise à jour de la JTable avec le modèle de table
-                        resultTable.setModel(tableModel);
-
-                        // Modification de la taille de la police dans la JTable
-                        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-                        Font font = renderer.getFont();
-                        Font newFont = font.deriveFont(font.getSize() + 2f); // Augmenter la taille de la police
-                        resultTable.setFont(newFont);
-
-
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                    }
-                }
 
                 if (changes >= 2) {
                     try {
