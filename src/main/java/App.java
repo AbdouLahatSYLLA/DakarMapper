@@ -97,52 +97,7 @@ public class App extends JFrame {
                     }
                 }
 
-                if (changes >= 2) {
-                    try {
-                        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
-                        String query2 = "SELECT distinct A.nom_long, A.ligne, B.nom_long, C.ligne,  D.nom_long \n" +
-                                "FROM bus as A, bus as B, bus as C, bus as D\n" +
-                                "WHERE A.nom_long = '" + from + "' AND D.nom_long = '" + to + "' AND A.ligne = B.ligne AND B.nom_long = C.nom_long AND C.ligne = D.ligne AND A.ligne <> C.ligne AND A.nom_long <> B.nom_long AND B.nom_long <> D.nom_long ;";
 
-                        Statement statement = connection.createStatement();
-                        ResultSet resultSet = statement.executeQuery(query2);
-
-                        // Création du modèle de table pour les résultats
-                        DefaultTableModel tableModel = new DefaultTableModel();
-                        tableModel.addColumn("From");
-                        tableModel.addColumn("Line");
-                        tableModel.addColumn("change");
-                        tableModel.addColumn("Line");
-                        tableModel.addColumn("To");
-
-                        // Ajout des résultats au modèle de table
-                        while (resultSet.next()) {
-                            String fromStation = resultSet.getString("A.nom_long");
-                            String line1 = resultSet.getString("A.ligne");
-                            String change = resultSet.getString("B.nom_long");
-                            String line2 = resultSet.getString("B.ligne");
-                            String toStation = resultSet.getString("D.nom_long");
-                            tableModel.addRow(new Object[]{fromStation, line1,change,line2, toStation});
-                        }
-
-                        resultSet.close();
-                        statement.close();
-                        connection.close();
-
-                        // Mise à jour de la JTable avec le modèle de table
-                        resultTable.setModel(tableModel);
-
-                        // Modification de la taille de la police dans la JTable
-                        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-                        Font font = renderer.getFont();
-                        Font newFont = font.deriveFont(font.getSize() + 2f); // Augmenter la taille de la police
-                        resultTable.setFont(newFont);
-
-
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                    }
-                }
 
                 if (changes >= 1) {
                     try {
@@ -166,6 +121,61 @@ public class App extends JFrame {
                             String toStation = resultSet.getString("B.nom_long");
                             tableModel.addRow(new Object[]{fromStation, line, toStation});
                         }
+
+                        resultSet.close();
+                        statement.close();
+                        connection.close();
+
+                        // Mise à jour de la JTable avec le modèle de table
+                        resultTable.setModel(tableModel);
+
+                        // Modification de la taille de la police dans la JTable
+                        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+                        Font font = renderer.getFont();
+                        Font newFont = font.deriveFont(font.getSize() + 2f); // Augmenter la taille de la police
+                        resultTable.setFont(newFont);
+
+
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+
+                if (changes >= 2) {
+                    try {
+                        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
+                        String query2 = "SELECT distinct A.nom_long, A.ligne, B.nom_long, C.ligne,  D.nom_long \n" +
+                                "FROM bus as A, bus as B, bus as C, bus as D\n" +
+                                "WHERE A.nom_long = '" + from + "' AND D.nom_long = '" + to + "' AND A.ligne = B.ligne AND B.nom_long = C.nom_long AND C.ligne = D.ligne AND A.ligne <> C.ligne AND A.nom_long <> B.nom_long AND B.nom_long <> D.nom_long ;";
+
+                        Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery(query2);
+                        ResultSetMetaData metaData = resultSet.getMetaData();
+
+
+// Création du modèle de table pour les résultats
+                        DefaultTableModel tableModel = new DefaultTableModel();
+                        tableModel.addColumn("From");
+                        tableModel.addColumn("Line 1");
+                        tableModel.addColumn("Change");
+                        tableModel.addColumn("Line 2");
+                        tableModel.addColumn("To");
+
+// Ajout des résultats au modèle de table
+                        while (resultSet.next()) {
+                            String column1 = resultSet.getString("A.nom_long");
+
+                            String column2 = resultSet.getString("A.ligne");
+
+                            String column3 = resultSet.getString("B.nom_long");
+
+                            String column4 = resultSet.getString("C.ligne");
+
+                            String column5 = resultSet.getString("D.nom_long");
+
+                            tableModel.addRow(new Object[]{column1, column2, column3, column4, column5});
+                        }
+
 
                         resultSet.close();
                         statement.close();
