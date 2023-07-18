@@ -130,20 +130,5 @@ public class MapViewer extends JPanel {
         mapViewer.setZoom(10);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame();
-            frame.setTitle("OpenStreetMap");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(800, 600);
 
-            MapViewer mapViewer = new MapViewer();
-            frame.getContentPane().add(mapViewer);
-
-            frame.setVisible(true);
-
-            // Exemple d'utilisation : Centrer la carte sur Dakar, Sénégal
-            mapViewer.setMarker(14.7167, -17.4677); // Dakar, Sénégal
-        });
-    }
 }

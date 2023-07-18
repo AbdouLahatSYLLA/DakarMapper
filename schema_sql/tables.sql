@@ -51,8 +51,6 @@ CREATE TABLE stop_time (
 
  CREATE TABLE bus (
    nom_long VARCHAR(200),
-   ligne VARCHAR(20)
+   ligne VARCHAR(20),
+   type VARCHAR (10)
  );
-
-
-
