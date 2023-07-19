@@ -145,9 +145,10 @@ public class App extends JFrame implements ActionListener {
             if (changes >= 2) {
                 try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
                      Statement statement = connection.createStatement()) {
-                    String query2 = "SELECT DISTINCT A.nom_long, A.ligne, B1.nom_long AS change_station, B2.ligne, B2.nom_long AS to_station\n" +
-                            "FROM bus AS A, bus AS B1, bus AS B2\n" +
-                            "WHERE A.nom_long = '" + from + "' AND B2.nom_long = '" + to + "' AND A.ligne = B1.ligne AND B1.nom_long = B2.nom_long AND A.type = '" + mode + "' AND B1.type = '" + mode + "' AND B2.type = '" + mode + "'  ;";
+                    String query2 = "SELECT distinct A.nom_long, A.ligne, B.nom_long, C.ligne,  D.nom_long \n" +
+                            "FROM bus as A, bus as B, bus as C, bus as D\n" +
+                            "WHERE A.nom_long = '" + from + "' AND D.nom_long = '" + to + "' AND A.ligne = B.ligne AND B.nom_long = C.nom_long AND C.ligne = D.ligne AND A.ligne <> C.ligne AND A.nom_long <> B.nom_long AND B.nom_long <> D.nom_long AND A.type = B.type = C.type = B.type = '" + mode + "' ;";
+
                     ResultSet resultSet = statement.executeQuery(query2);
 
                     // Création du modèle de table pour les résultats
@@ -162,9 +163,9 @@ public class App extends JFrame implements ActionListener {
                     while (resultSet.next()) {
                         String fromStation = resultSet.getString("A.nom_long");
                         String line1 = resultSet.getString("A.ligne");
-                        String changeStation = resultSet.getString("change_station");
-                        String line2 = resultSet.getString("B2.ligne");
-                        String toStation = resultSet.getString("to_station");
+                        String changeStation = resultSet.getString("B.nom_long");
+                        String line2 = resultSet.getString("C.ligne");
+                        String toStation = resultSet.getString("D.nom_long");
                         tableModel.addRow(new Object[]{fromStation, line1, changeStation, line2, toStation});
                     }
 
@@ -185,10 +186,11 @@ public class App extends JFrame implements ActionListener {
             if (changes >= 3) {
                 try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
                      Statement statement = connection.createStatement()) {
-                    String query3 = "SELECT DISTINCT A.nom_long, A.ligne, B1.nom_long AS change1_station, B2.ligne, B2.nom_long AS change2_station, B3.ligne, B3.nom_long AS to_station\n" +
-                            "FROM bus AS A, bus AS B1, bus AS B2, bus AS B3\n" +
-                            "WHERE A.nom_long = '" + from + "' AND B3.nom_long = '" + to + "' AND A.ligne = B1.ligne AND B1.nom_long = B2.nom_long AND B2.ligne = B3.ligne AND A.type = '" + mode + "' AND B1.type = '" + mode + "' AND B2.type = '" + mode + "' AND B3.type = '" + mode + "'  ;";
-                    ResultSet resultSet = statement.executeQuery(query3);
+                    String query3 = "SELECT distinct A.nom_long, A.ligne, B2.nom_long, B2.ligne, C2.nom_long, C2.ligne, D.nom_long \n" +
+                            "FROM bus as A, bus as B1, bus as B2, bus as C1, bus as C2, bus as D \n" +
+                            "WHERE A.nom_long = '" + from + "'" + " AND A.ligne = B1.ligne AND B1.nom_long = B2.nom_long AND B2.ligne = C1.ligne AND C1.nom_long = C2.nom_long AND C2.ligne = D.ligne AND D.nom_long = '" + to +  "'" +  "AND A.ligne <> B2.ligne AND B2.ligne <> C2.ligne AND A.ligne <> C2.ligne AND A.nom_long <> B1.nom_long AND B2.nom_long <> C1.nom_long AND C2.nom_long <> D.nom_long AND \n" +
+                            "A.type = B1.type = B2.type = C1.type = C2.type = D.type = '" + mode + "';";
+                     ResultSet resultSet = statement.executeQuery(query3);
 
                     // Création du modèle de table pour les résultats
                     DefaultTableModel tableModel = new DefaultTableModel();
@@ -204,11 +206,11 @@ public class App extends JFrame implements ActionListener {
                     while (resultSet.next()) {
                         String fromStation = resultSet.getString("A.nom_long");
                         String line1 = resultSet.getString("A.ligne");
-                        String change1Station = resultSet.getString("change1_station");
+                        String change1Station = resultSet.getString("B2.nom_long");
                         String line2 = resultSet.getString("B2.ligne");
-                        String change2Station = resultSet.getString("change2_station");
-                        String line3 = resultSet.getString("B3.ligne");
-                        String toStation = resultSet.getString("to_station");
+                        String change2Station = resultSet.getString("C2.nom_long");
+                        String line3 = resultSet.getString("C2.ligne");
+                        String toStation = resultSet.getString("D.nom_long");
                         tableModel.addRow(new Object[]{fromStation, line1, change1Station, line2, change2Station, line3, toStation});
                     }
 
@@ -265,9 +267,10 @@ public class App extends JFrame implements ActionListener {
             if (changes >= 2) {
                 try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
                      Statement statement = connection.createStatement()) {
-                    String query2 = "SELECT DISTINCT A.nom_long, A.ligne, B1.nom_long AS change_station, B2.ligne, B2.nom_long AS to_station\n" +
-                            "FROM bus AS A, bus AS B1, bus AS B2\n" +
-                            "WHERE A.nom_long = '" + from + "' AND B2.nom_long = '" + to + "' AND A.ligne = B1.ligne AND B1.nom_long = B2.nom_long AND (A.type = 'AFTU' OR A.type = 'DDD') AND (B1.type = 'AFTU' OR B1.type = 'DDD') AND (B2.type = 'AFTU' OR B2.type = 'DDD') ;";
+                    String query2 = "SELECT distinct A.nom_long, A.ligne, B.nom_long, C.ligne,  D.nom_long \n" +
+                            "FROM bus as A, bus as B, bus as C, bus as D\n" +
+                            "WHERE A.nom_long = '" + from + "' AND D.nom_long = '" + to + "' AND A.ligne = B.ligne AND B.nom_long = C.nom_long AND C.ligne = D.ligne AND A.ligne <> C.ligne AND A.nom_long <> B.nom_long AND B.nom_long <> D.nom_long AND (A.type IN ('AFTU','DDD'))  AND  (B.type IN ('AFTU','DDD'))  AND (C.type IN ('AFTU','DDD'))  AND (D.type IN ('AFTU','DDD')) ;";
+
                     ResultSet resultSet = statement.executeQuery(query2);
 
                     // Création du modèle de table pour les résultats
@@ -282,12 +285,11 @@ public class App extends JFrame implements ActionListener {
                     while (resultSet.next()) {
                         String fromStation = resultSet.getString("A.nom_long");
                         String line1 = resultSet.getString("A.ligne");
-                        String changeStation = resultSet.getString("change_station");
-                        String line2 = resultSet.getString("B2.ligne");
-                        String toStation = resultSet.getString("to_station");
+                        String changeStation = resultSet.getString("B.nom_long");
+                        String line2 = resultSet.getString("C.ligne");
+                        String toStation = resultSet.getString("D.nom_long");
                         tableModel.addRow(new Object[]{fromStation, line1, changeStation, line2, toStation});
                     }
-
                     // Mise à jour de la JTable avec le modèle de table
                     resultTable.setModel(tableModel);
 
@@ -305,9 +307,10 @@ public class App extends JFrame implements ActionListener {
             if (changes >= 3) {
                 try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
                      Statement statement = connection.createStatement()) {
-                    String query3 = "SELECT DISTINCT A.nom_long, A.ligne, B1.nom_long AS change1_station, B2.ligne, B2.nom_long AS change2_station, B3.ligne, B3.nom_long AS to_station\n" +
-                            "FROM bus AS A, bus AS B1, bus AS B2, bus AS B3\n" +
-                            "WHERE A.nom_long = '" + from + "' AND B3.nom_long = '" + to + "' AND A.ligne = B1.ligne AND B1.nom_long = B2.nom_long AND B2.ligne = B3.ligne AND (A.type = 'AFTU' OR A.type = 'DDD') AND (B1.type = 'AFTU' OR B1.type = 'DDD') AND (B2.type = 'AFTU' OR B2.type = 'DDD') AND (B3.type = 'AFTU' OR B3.type = 'DDD') ;";
+                    String query3 = "SELECT distinct A.nom_long, A.ligne, B2.nom_long, B2.ligne, C2.nom_long, C2.ligne, D.nom_long \n" +
+                            "FROM bus as A, bus as B1, bus as B2, bus as C1, bus as C2, bus as D \n" +
+                            "WHERE A.nom_long = '" + from + "'" + " AND A.ligne = B1.ligne AND B1.nom_long = B2.nom_long AND B2.ligne = C1.ligne AND C1.nom_long = C2.nom_long AND C2.ligne = D.ligne AND D.nom_long = '" + to +  "'" +  "AND A.ligne <> B2.ligne AND B2.ligne <> C2.ligne AND A.ligne <> C2.ligne AND A.nom_long <> B1.nom_long AND B2.nom_long <> C1.nom_long AND C2.nom_long <> D.nom_long AND \n" +
+                            "(A.type IN ('AFTU','DDD')) AND (B1.type IN ('AFTU','DDD')) AND (B2.type IN ('AFTU','DDD')) AND  (C1.type IN ('AFTU','DDD')) AND (C2.type IN ('AFTU','DDD')) AND (D.type IN ('AFTU','DDD')) ;";
                     ResultSet resultSet = statement.executeQuery(query3);
 
                     // Création du modèle de table pour les résultats
@@ -324,11 +327,11 @@ public class App extends JFrame implements ActionListener {
                     while (resultSet.next()) {
                         String fromStation = resultSet.getString("A.nom_long");
                         String line1 = resultSet.getString("A.ligne");
-                        String change1Station = resultSet.getString("change1_station");
+                        String change1Station = resultSet.getString("B2.nom_long");
                         String line2 = resultSet.getString("B2.ligne");
-                        String change2Station = resultSet.getString("change2_station");
-                        String line3 = resultSet.getString("B3.ligne");
-                        String toStation = resultSet.getString("to_station");
+                        String change2Station = resultSet.getString("C2.nom_long");
+                        String line3 = resultSet.getString("C2.ligne");
+                        String toStation = resultSet.getString("D.nom_long");
                         tableModel.addRow(new Object[]{fromStation, line1, change1Station, line2, change2Station, line3, toStation});
                     }
 
