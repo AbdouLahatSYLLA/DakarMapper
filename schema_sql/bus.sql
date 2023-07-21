@@ -17,16 +17,27 @@ VALUES
 
 INSERT INTO bus (nom_long, ligne, type)
 VALUES
-('Terminus des Parcelles Assainies', 'Ligne 2', 'AFTU'),
-('Croisement 22', 'Ligne 2', 'AFTU'),
-('Pont Aliou Sow', 'Ligne 2', 'AFTU'),
-('Rond point Liberté 6', 'Ligne 2', 'AFTU'),
-('Castor', 'Ligne 2', 'AFTU'),
-('HLM', 'Ligne 2', 'AFTU'),
-('Colobane', 'Ligne 2', 'AFTU'),
-('Tilène', 'Ligne 2', 'AFTU'),
-('Avenue Blaise Diagne', 'Ligne 2', 'AFTU'),
-('Terminus Pétersen', 'Ligne 2', 'AFTU');
+('Terminus Daroukhane', 'Ligne 2', 'DDD'),
+('Corniche-Hamo', 'Ligne 2', 'DDD'),
+('Terminus Guédiawaye', 'Ligne 2', 'DDD'),
+('Marché Sahm', 'Ligne 2', 'DDD'),
+('Ecole Canada', 'Ligne 2', 'DDD'),
+('Route des Niayes', 'Ligne 2', 'DDD'),
+('Tally Boumack (route de l’Ouest)', 'Ligne 2', 'DDD'),
+('Route Nationale n° 1', 'Ligne 2', 'DDD'),
+('Autoroute', 'Ligne 2', 'DDD'),
+('Cité des Eaux', 'Ligne 2', 'DDD'),
+('Avenue Bourguiba', 'Ligne 2', 'DDD'),
+('Avenue Cheikh Ahmadou Bamba (ex Rue 13 Prolongée)', 'Ligne 2', 'DDD'),
+('Bld Général De Gaule', 'Ligne 2', 'DDD'),
+('Rue 25', 'Ligne 2', 'DDD'),
+('Avenue Blaise Diagne', 'Ligne 2', 'DDD'),
+('Avenue Jean Jaurès', 'Ligne 2', 'DDD'),
+('Avenue Georges Pompidou', 'Ligne 2', 'DDD'),
+('Place de l’Indépendance', 'Ligne 2', 'DDD'),
+('Esso Port', 'Ligne 2', 'DDD'),
+('Place Leclerc', 'Ligne 2', 'DDD');
+
 
 INSERT INTO bus (nom_long, ligne, type)
 VALUES
@@ -44,29 +55,50 @@ VALUES
 
 INSERT INTO bus (nom_long, ligne, type)
 VALUES
-('Terminus Yoff Village', 'Ligne 4', 'AFTU'),
-('Route de L''Aéroport', 'Ligne 4', 'AFTU'),
-('Foire', 'Ligne 4', 'AFTU'),
-('VDN (Voie de Dégagement Nord)', 'Ligne 4', 'AFTU'),
-('Avenue Cheikh Anta Diop (UCAD)', 'Ligne 4', 'AFTU'),
-('Hôpital Abass Ndao', 'Ligne 4', 'AFTU'),
-('Tilène', 'Ligne 4', 'AFTU'),
-('Avenue Blaise Diange', 'Ligne 4', 'AFTU'),
-('Terminus Pétersen', 'Ligne 4', 'AFTU');
+('Terminus Dieuppeul', 'Ligne 4', 'DDD'),
+('Cité Derklé', 'Ligne 4', 'DDD'),
+('Khar Yalla', 'Ligne 4', 'DDD'),
+('Cité Marine', 'Ligne 4', 'DDD'),
+('CEG Dieuppeul 3', 'Ligne 4', 'DDD'),
+('Camp Sapeurs-Pompiers', 'Ligne 4', 'DDD'),
+('Cité Sacré Cœur', 'Ligne 4', 'DDD'),
+('Collège Sacré Cœur', 'Ligne 4', 'DDD'),
+('Sicap Karack', 'Ligne 4', 'DDD'),
+('Avenue Bourguiba', 'Ligne 4', 'DDD'),
+('Dial Diop ex rue 10', 'Ligne 4', 'DDD'),
+('Point E', 'Ligne 4', 'DDD'),
+('HLM Fass', 'Ligne 4', 'DDD'),
+('Canal Gueule Tapée', 'Ligne 4', 'DDD'),
+('Avenue Blaise Diagne', 'Ligne 4', 'DDD'),
+('Avenue Jean Jaurès', 'Ligne 4', 'DDD'),
+('Boulevard de la République', 'Ligne 4', 'DDD'),
+('Avenue Léopold Sédar Senghor', 'Ligne 4', 'DDD'),
+('Allées Canard-Esso Port Embarcadère', 'Ligne 4', 'DDD'),
+('Terminus Leclerc', 'Ligne 4', 'DDD');
+
 
 INSERT INTO bus (nom_long, ligne, type)
 VALUES
-('Terminus Parcelles', 'Ligne 5', 'AFTU'),
-('Croisement 22', 'Ligne 5', 'AFTU'),
-('Pont Sénégal Emergent', 'Ligne 5', 'AFTU'),
-('Patte D''oie', 'Ligne 5', 'AFTU'),
-('Fourière', 'Ligne 5', 'AFTU'),
-('Castor', 'Ligne 5', 'AFTU'),
-('HLM', 'Ligne 5', 'AFTU'),
-('Colobane', 'Ligne 5', 'AFTU'),
-('Tilène', 'Ligne 5', 'AFTU'),
-('Avenue Blaise Diange', 'Ligne 5', 'AFTU'),
-('Terminus Pétersen', 'Ligne 5', 'AFTU');
+('Terminus Guédiawaye', 'Ligne 5', 'DDD'),
+('Route de la Corniche', 'Ligne 5', 'DDD'),
+('Cité des Enseignants', 'Ligne 5', 'DDD'),
+('Maison du PAI', 'Ligne 5', 'DDD'),
+('Cité Hlm', 'Ligne 5', 'DDD'),
+('Golf', 'Ligne 5', 'DDD'),
+('Route des Niayes', 'Ligne 5', 'DDD'),
+('Police de Parcelles Assainies', 'Ligne 5', 'DDD'),
+('Pont du Stade Léopold Sédar Senghor (Echangeur)', 'Ligne 5', 'DDD'),
+('Patte d’Oie', 'Ligne 5', 'DDD'),
+('Autoroute', 'Ligne 5', 'DDD'),
+('Passage Cyrnos', 'Ligne 5', 'DDD'),
+('Avenue Lamine Guèye', 'Ligne 5', 'DDD'),
+('Avenue André Peytavin', 'Ligne 5', 'DDD'),
+('Avenue Jean Jaurès', 'Ligne 5', 'DDD'),
+('Bld de la République', 'Ligne 5', 'DDD'),
+('Avenue Léopold Sédar Senghor', 'Ligne 5', 'DDD'),
+('Avenue Nelson Mandela', 'Ligne 5', 'DDD'),
+('Palais de Justice 1', 'Ligne 5', 'DDD');
+
 
 INSERT INTO bus (nom_long, ligne, type)
 VALUES
@@ -1090,8 +1122,6 @@ VALUES
 ('Avenue Léopold Sédar Senghor', 'Ligne 4', 'DDD'),
 ('Allées Canard-Esso Port Embarcadère', 'Ligne 4', 'DDD'),
 ('Terminus Leclerc', 'Ligne 4', 'DDD'),
-('Ouakam', 'Ligne 7', 'DDD'),
-('Palais 2', 'Ligne 7', 'DDD'),
 ('Terminus Ouakam', 'Ligne 7', 'DDD'),
 ('Cité Assemblée', 'Ligne 7', 'DDD'),
 ('Comico', 'Ligne 7', 'DDD'),
@@ -1103,9 +1133,9 @@ VALUES
 ('Place de l’Indépendance', 'Ligne 7', 'DDD'),
 ('Avenue Léopold Sédar Senghor', 'Ligne 7', 'DDD'),
 ('Avenue Nelson Mandela', 'Ligne 7', 'DDD'),
-('Palais de Justice', 'Ligne 7', 'DDD'),
-('Aéroport LSS', 'Ligne 8', 'DDD'),
-('Palais 2', 'Ligne 8', 'DDD'),
+('Palais de Justice', 'Ligne 7', 'DDD');
+INSERT INTO bus (nom_long, ligne, type)
+VALUES
 ('Terminus Aéroport', 'Ligne 8', 'DDD'),
 ('Cité Asecna', 'Ligne 8', 'DDD'),
 ('Yoff Village', 'Ligne 8', 'DDD'),
@@ -1124,8 +1154,8 @@ VALUES
 ('Avenue Léopold Sédar Senghor', 'Ligne 8', 'DDD'),
 ('Avenue Nelson Mandela', 'Ligne 8', 'DDD'),
 ('Palais de Justice', 'Ligne 8', 'DDD'),
-('Liberté 6', 'Ligne 9', 'DDD'),
-('Palais 2', 'Ligne 9', 'DDD'),
+('Palais 2', 'Ligne 8', 'DDD'),
+
 ('Liberté 6', 'Ligne 9', 'DDD'),
 ('Sacré Cœur', 'Ligne 9', 'DDD'),
 ('Terminus Dieuppeul', 'Ligne 9', 'DDD'),
@@ -1143,8 +1173,7 @@ VALUES
 ('Avenue Léopold Sédar Senghor', 'Ligne 9', 'DDD'),
 ('Avenue Nelson Mandela', 'Ligne 9', 'DDD'),
 ('Palais 2', 'Ligne 9', 'DDD'),
-('Liberté 5', 'Ligne 10', 'DDD'),
-('Palais 2', 'Ligne 10', 'DDD'),
+
 ('Terminus Dieuppeul', 'Ligne 10', 'DDD'),
 ('Cité Derklé', 'Ligne 10', 'DDD'),
 ('Khar Yalla', 'Ligne 10', 'DDD'),
@@ -1162,10 +1191,31 @@ VALUES
 ('Bld de la République', 'Ligne 10', 'DDD'),
 ('Avenue Léopold Sédar Senghor', 'Ligne 10', 'DDD'),
 ('Avenue Nelson Mandela', 'Ligne 10', 'DDD'),
-('Palais 2', 'Ligne 10', 'DDD'),
-('Dieuppeul', 'Ligne 18', 'DDD'),
-('Centre-ville', 'Ligne 18', 'DDD'),
-('Dieuppeul', 'Ligne 18', 'DDD'),
+('Palais 2', 'Ligne 10', 'DDD');
+
+INSERT INTO bus (nom_long, ligne, type)
+VALUES
+('Terminus Keur Massar', 'Ligne 11', 'DDD'),
+('Parcelles Assainies (keur Massar) Route de Boune', 'Ligne 11', 'DDD'),
+('Fass Mbao', 'Ligne 11', 'DDD'),
+('Diamaguène', 'Ligne 11', 'DDD'),
+('Thiaroye/mer', 'Ligne 11', 'DDD'),
+('Croisement Pikine', 'Ligne 11', 'DDD'),
+('Route Nationale', 'Ligne 11', 'DDD'),
+('Autoroute', 'Ligne 11', 'DDD'),
+('Corniche des Hlm', 'Ligne 11', 'DDD'),
+('Colobane', 'Ligne 11', 'DDD'),
+('Caisse de sécurité sociale', 'Ligne 11', 'DDD'),
+('Bd Général De Gaule (Centenaire)', 'Ligne 11', 'DDD'),
+('RTS', 'Ligne 11', 'DDD'),
+('Rond Point Poste Médina', 'Ligne 11', 'DDD'),
+('Blaise Diagne', 'Ligne 11', 'DDD'),
+('Sandaga', 'Ligne 11', 'DDD'),
+('Terminus Lat-Dior', 'Ligne 11', 'DDD'),
+('Lat Dior', 'Ligne 11', 'DDD');
+
+INSERT INTO bus (nom_long, ligne, type)
+VALUES
 ('Terminus Dieuppeul', 'Ligne 18', 'DDD'),
 ('Cité Derklé', 'Ligne 18', 'DDD'),
 ('Khar Yalla', 'Ligne 18', 'DDD'),
@@ -1184,8 +1234,6 @@ VALUES
 ('Avenue André Peytavin', 'Ligne 18', 'DDD'),
 ('Route de la Corniche', 'Ligne 18', 'DDD'),
 ('Avenue Malick Sy', 'Ligne 18', 'DDD'),
-INSERT INTO bus (nom_long, ligne, type)
-VALUES
 ('Rue 6', 'Ligne 18', 'DDD'),
 ('Gueule Tapée', 'Ligne 18', 'DDD'),
 ('Lycée Delafosse', 'Ligne 18', 'DDD'),
@@ -1195,9 +1243,7 @@ VALUES
 ('Rond-Point Jet d’eau', 'Ligne 18', 'DDD'),
 ('Allées Ababacar Sy', 'Ligne 18', 'DDD'),
 ('Terminus Dieuppeul', 'Ligne 18', 'DDD'),
-('Dieuppeul', 'Ligne 20', 'DDD'),
-('Centre-ville', 'Ligne 20', 'DDD'),
-('Dieuppeul', 'Ligne 20', 'DDD'),
+
 ('Terminus Dieuppeul', 'Ligne 20', 'DDD'),
 ('Allées Ababacar Sy', 'Ligne 20', 'DDD'),
 ('Jet d’eau', 'Ligne 20', 'DDD'),
@@ -1224,30 +1270,43 @@ VALUES
 ('Rue 13 prolongée', 'Ligne 20', 'DDD'),
 ('Station Castors', 'Ligne 20', 'DDD'),
 ('Avenue Cheikh Ahmadou Bamba', 'Ligne 20', 'DDD'),
-('Cité Port', 'Ligne 20', 'DDD'),
-('Ouakam', 'Ligne 23', 'DDD'),
-('Village Des Pêcheurs', 'Ligne 23', 'DDD'),
-('Terminus Ouakam', 'Ligne 23', 'DDD'),
-('Yoff', 'Ligne 23', 'DDD'),
-('Corniche Est', 'Ligne 23', 'DDD'),
-('Avenue Malick Sy', 'Ligne 23', 'DDD'),
-('Avenue de la Somme', 'Ligne 23', 'DDD'),
-('Sacré Cœur 1', 'Ligne 23', 'DDD'),
-('Sacré Cœur 3', 'Ligne 23', 'DDD'),
-('Télécentre', 'Ligne 23', 'DDD'),
-('Point E', 'Ligne 23', 'DDD'),
-('Sacré Cœur 3', 'Ligne 23', 'DDD'),
-('Route de l’Aéroport', 'Ligne 23', 'DDD'),
-('Lycée Lamine Gueye', 'Ligne 23', 'DDD'),
-('Diamaguène Sicap Mbao', 'Ligne 24', 'DDD'),
-('Cité Lamine Guèye', 'Ligne 24', 'DDD'),
-('Village Malick', 'Ligne 24', 'DDD'),
-('Terminus Malick', 'Ligne 24', 'DDD');
+('Cité Port', 'Ligne 20', 'DDD');
 
 INSERT INTO bus (nom_long, ligne, type)
 VALUES
-('Rufisque', 'Ligne 15A & 15B', 'DDD'),
-('Palais 1', 'Ligne 15A & 15B', 'DDD'),
+('Terminus des Parcelles', 'Ligne 23', 'DDD'),
+('Ecole Dior', 'Ligne 23', 'DDD'),
+('Cités Diamalaye', 'Ligne 23', 'DDD'),
+('Hlm Grand Médine', 'Ligne 23', 'DDD'),
+('Reprise Route du Terminus', 'Ligne 23', 'DDD'),
+('Eglise', 'Ligne 23', 'DDD'),
+('Route des Niayes', 'Ligne 23', 'DDD'),
+('Echangeur du Stade LÃ©opold SÃ©dar Senghor (AmitiÃ©)', 'Ligne 23', 'DDD'),
+('Cité Keur Khadim', 'Ligne 23', 'DDD'),
+('Camp Pénal', 'Ligne 23', 'DDD'),
+('Route du Front de Terre', 'Ligne 23', 'DDD'),
+('Cité des Eaux', 'Ligne 23', 'DDD'),
+('Avenue Bourguiba', 'Ligne 23', 'DDD'),
+('Relais', 'Ligne 23', 'DDD'),
+('Avenue Cheikh Anta Diop', 'Ligne 23', 'DDD'),
+('(Route de Ouakam)', 'Ligne 23', 'DDD'),
+('Marché SAHM', 'Ligne 23', 'DDD'),
+('Gueule Tapée', 'Ligne 23', 'DDD'),
+('Rue 6', 'Ligne 23', 'DDD'),
+('Avenue Malick Sy', 'Ligne 23', 'DDD'),
+('Avenue Blaise Diagne', 'Ligne 23', 'DDD'),
+('Avenue Jean Jaurès', 'Ligne 23', 'DDD'),
+('Bld de la République', 'Ligne 23', 'DDD'),
+('Avenue Léopold Sédar Senghor', 'Ligne 23', 'DDD'),
+('Hôpital Principal', 'Ligne 23', 'DDD'),
+('Avenue Nelson Mandela', 'Ligne 23', 'DDD'),
+('Hôpital Le Dantec', 'Ligne 23', 'DDD'),
+('Palais de Justice', 'Ligne 23', 'DDD'),
+('Palais 1', 'Ligne 23', 'DDD');
+
+
+INSERT INTO bus (nom_long, ligne, type)
+VALUES
 ('Terminus Rufisque', 'Ligne 15A & 15B', 'DDD'),
 ('Mosquée Keuri Kaw', 'Ligne 15A & 15B', 'DDD'),
 ('Sortie Rufisque (Dioukoul)', 'Ligne 15A & 15B', 'DDD'),
@@ -1266,8 +1325,7 @@ VALUES
 
 INSERT INTO bus (nom_long, ligne, type)
 VALUES
-('Malika', 'Ligne 16A', 'DDD'),
-('Palais 1', 'Ligne 16A', 'DDD'),
+
 ('Terminus Malika', 'Ligne 16A', 'DDD'),
 ('Yeumbeul', 'Ligne 16A', 'DDD'),
 ('Tally Diallo', 'Ligne 16A', 'DDD'),
@@ -1286,8 +1344,7 @@ VALUES
 
 INSERT INTO bus (nom_long, ligne, type)
 VALUES
-('Malika', 'Ligne 16B', 'DDD'),
-('Palais 1', 'Ligne 16B', 'DDD'),
+
 ('Terminus Malika', 'Ligne 16B', 'DDD'),
 ('Station Keur Massar', 'Ligne 16B', 'DDD'),
 ('Croisement Keur Massar', 'Ligne 16B', 'DDD'),
@@ -1318,8 +1375,7 @@ VALUES
 
 INSERT INTO bus (nom_long, ligne, type)
 VALUES
-('Bayakh', 'Ligne 208', 'DDD'),
-('Rufisque', 'Ligne 208', 'DDD'),
+
 ('Gorom 01', 'Ligne 208', 'DDD'),
 ('Gororm 02', 'Ligne 208', 'DDD'),
 ('Bambilor', 'Ligne 208', 'DDD'),
@@ -1372,8 +1428,6 @@ VALUES
 
 INSERT INTO bus (nom_long, ligne, type)
 VALUES
-('Thiaroye', 'Ligne 218', 'DDD'),
-('Aéroport LSS', 'Ligne 218', 'DDD'),
 ('Dépôt Thiaroye', 'Ligne 218', 'DDD'),
 ('Route Nationale N° 1', 'Ligne 218', 'DDD'),
 ('Pikine', 'Ligne 218', 'DDD'),
@@ -1392,8 +1446,7 @@ VALUES
 
 INSERT INTO bus (nom_long, ligne, type)
 VALUES
-('Daroukhane', 'Ligne 219', 'DDD'),
-('Ouakam', 'Ligne 219', 'DDD'),
+
 ('Daroukhane', 'Ligne 219', 'DDD'),
 ('marché Ndiarème', 'Ligne 219', 'DDD'),
 ('deux voies Pikine Notaire', 'Ligne 219', 'DDD'),
@@ -1435,8 +1488,7 @@ VALUES
 
 INSERT INTO bus (nom_long, ligne, type)
 VALUES
-('Gadaye', 'Ligne 221', 'DDD'),
-('Almadies', 'Ligne 221', 'DDD'),
+
 ('Cité Gadaye (Filaos)', 'Ligne 221', 'DDD'),
 ('Corniche Daroukhane', 'Ligne 221', 'DDD'),
 ('Hamo 6', 'Ligne 221', 'DDD'),
@@ -1475,8 +1527,7 @@ VALUES
 
 INSERT INTO bus (nom_long, ligne, type)
 VALUES
-('Terminus Rufisque', 'Ligne 228', 'DDD'),
-('Yenne', 'Ligne 228', 'DDD'),
+
 ('Terminus Rufisque', 'Ligne 228', 'DDD'),
 ('ville de Rufisque', 'Ligne 228', 'DDD'),
 ('Bargny', 'Ligne 228', 'DDD'),
@@ -1484,8 +1535,6 @@ VALUES
 
 INSERT INTO bus (nom_long, ligne, type)
 VALUES
-('Baux Maraichers', 'Ligne 232', 'DDD'),
-('Aéroport LSS', 'Ligne 232', 'DDD'),
 ('Baux Maraichers', 'Ligne 232', 'DDD'),
 ('Yarakh', 'Ligne 232', 'DDD'),
 ('Cafétéria', 'Ligne 232', 'DDD'),
@@ -1502,8 +1551,7 @@ VALUES
 
 INSERT INTO bus (nom_long, ligne, type)
 VALUES
-('Baux Maraichers', 'Ligne 233', 'DDD'),
-('Palais 1', 'Ligne 233', 'DDD'),
+
 ('Baux Maraichers', 'Ligne 233', 'DDD'),
 ('RN1', 'Ligne 233', 'DDD'),
 ('Croisement Cambérène', 'Ligne 233', 'DDD'),
@@ -1559,21 +1607,24 @@ VALUES
 ('Pharmacie Patte d’Oie', 'Ligne 401', 'DDD'),
 ('Terminus Sphère', 'Ligne 401', 'DDD');
 
+INSERT INTO bus (nom_long, ligne, type)
 VALUES
-('Terminus Ouakam', 'Ligne 402', 'DDD'),
-('Marché Ouakam', 'Ligne 402', 'DDD'),
-('Carrefour Yarakh', 'Ligne 402', 'DDD'),
-('Poste Mamelles', 'Ligne 402', 'DDD'),
-('Almadies', 'Ligne 402', 'DDD'),
-('Phare des Mamelles', 'Ligne 402', 'DDD'),
-('corniche Ouest', 'Ligne 402', 'DDD'),
-('Yoff APECSY', 'Ligne 402', 'DDD'),
-('Cité Gadaye', 'Ligne 402', 'DDD');
+('Thiaroye', 'Ligne 402', 'DDD'),
+('RN1', 'Ligne 402', 'DDD'),
+('Rufisque Ouest', 'Ligne 402', 'DDD'),
+('Bargny', 'Ligne 402', 'DDD'),
+('Diamniadio', 'Ligne 402', 'DDD'),
+('AIBD', 'Ligne 402', 'DDD'),
+('Thiaroye', 'Ligne 402', 'DDD'),
+('RN1', 'Ligne 402', 'DDD'),
+('Rufisque Ouest', 'Ligne 402', 'DDD'),
+('Bargny', 'Ligne 402', 'DDD'),
+('Diamniadio', 'Ligne 402', 'DDD'),
+('Sphère', 'Ligne 402', 'DDD');
 
 INSERT INTO bus (nom_long, ligne, type)
 VALUES
-('Liberté 5', 'Ligne 13', 'DDD'),
-('Palais 2', 'Ligne 13', 'DDD'),
+
 ('Terminus Dieuppeul', 'Ligne 13', 'DDD'),
 ('Avenue Cheikh Ahmadou Bamba (ex rue 13 Prolongée)', 'Ligne 13', 'DDD'),
 ('Station Castors', 'Ligne 13', 'DDD'),
@@ -1668,8 +1719,7 @@ VALUES
 ('2 voies Jaxaay', 'Ligne 403', 'DDD'),
 ('Sedima', 'Ligne 403', 'DDD'),
 ('Péage', 'Ligne 403', 'DDD'),
-('AIBD', 'Ligne 403', 'DDD'),
-('Parcelles vers Sphère', 'Ligne 403', 'DDD');
+('AIBD', 'Ligne 403', 'DDD');
 
 INSERT INTO bus (nom_long, ligne, type)
 VALUES

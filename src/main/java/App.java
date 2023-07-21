@@ -69,7 +69,7 @@ public class App extends JFrame implements ActionListener {
     }
 
     private void populateComboBoxes() {
-        String query = "SELECT DISTINCT nom_long FROM bus ORDER BY nom_long ASC";
+        String query = "SELECT DISTINCT nom_long FROM bus WHERE type = 'DDD' ORDER BY nom_long ASC";
         List<String> stations = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
@@ -105,13 +105,14 @@ public class App extends JFrame implements ActionListener {
         System.out.println("To: " + to);
         System.out.println("Changes: " + changes);
 
+        assert mode != null;
         if (mode.equals( "DDD") || mode.equals( "AFTU")) {
             if (changes >= 1) {
                 try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
                      Statement statement = connection.createStatement()) {
                     String query = "SELECT DISTINCT A.nom_long, A.ligne, B.nom_long " +
                             "FROM bus as A, bus as B " +
-                            "WHERE B.nom_long = '" + to + "' AND A.nom_long = '" + from + "' AND A.ligne = B.ligne AND A.type = '" + mode + "' AND B.type = '" + mode + "'  ;";
+                            "WHERE B.nom_long = '" + to + "' AND A.nom_long = '" + from + "' AND A.ligne = B.ligne AND A.type = B.type  AND B.type = '" + mode + "'  ;";
                     ResultSet resultSet = statement.executeQuery(query);
 
                     // Création du modèle de table pour les résultats
@@ -147,7 +148,7 @@ public class App extends JFrame implements ActionListener {
                      Statement statement = connection.createStatement()) {
                     String query2 = "SELECT distinct A.nom_long, A.ligne, B.nom_long, C.ligne,  D.nom_long \n" +
                             "FROM bus as A, bus as B, bus as C, bus as D\n" +
-                            "WHERE A.nom_long = '" + from + "' AND D.nom_long = '" + to + "' AND A.ligne = B.ligne AND B.nom_long = C.nom_long AND C.ligne = D.ligne AND A.ligne <> C.ligne AND A.nom_long <> B.nom_long AND B.nom_long <> D.nom_long AND A.type = B.type = C.type = B.type = '" + mode + "' ;";
+                            "WHERE A.nom_long = '" + from + "' AND D.nom_long = '" + to + "' AND A.ligne = B.ligne AND B.nom_long = C.nom_long AND C.ligne = D.ligne AND A.ligne <> C.ligne AND A.nom_long <> B.nom_long AND B.nom_long <> D.nom_long AND A.type = B.type AND  C.type = B.type AND B.type = '" + mode + "' ;";
 
                     ResultSet resultSet = statement.executeQuery(query2);
 
@@ -189,7 +190,7 @@ public class App extends JFrame implements ActionListener {
                     String query3 = "SELECT distinct A.nom_long, A.ligne, B2.nom_long, B2.ligne, C2.nom_long, C2.ligne, D.nom_long \n" +
                             "FROM bus as A, bus as B1, bus as B2, bus as C1, bus as C2, bus as D \n" +
                             "WHERE A.nom_long = '" + from + "'" + " AND A.ligne = B1.ligne AND B1.nom_long = B2.nom_long AND B2.ligne = C1.ligne AND C1.nom_long = C2.nom_long AND C2.ligne = D.ligne AND D.nom_long = '" + to +  "'" +  "AND A.ligne <> B2.ligne AND B2.ligne <> C2.ligne AND A.ligne <> C2.ligne AND A.nom_long <> B1.nom_long AND B2.nom_long <> C1.nom_long AND C2.nom_long <> D.nom_long AND \n" +
-                            "A.type = B1.type = B2.type = C1.type = C2.type = D.type = '" + mode + "';";
+                            "A.type = B1.type AND  B2.type = C1.type AND  C2.type = D.type AND D.type = '" + mode + "';";
                      ResultSet resultSet = statement.executeQuery(query3);
 
                     // Création du modèle de table pour les résultats
