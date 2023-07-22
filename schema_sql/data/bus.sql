@@ -1414,6 +1414,8 @@ VALUES
 ('Route des Niayes', 'Ligne 217', 'DDD'),
 ('Pikine', 'Ligne 217', 'DDD'),
 ('Canada Golf Fadia', 'Ligne 217', 'DDD'),
+('Golf ', 'Ligne 217', 'DDD'),
+('Fadia', 'Ligne 217', 'DDD'),
 ('Case bi', 'Ligne 217', 'DDD'),
 ('Croisement 22', 'Ligne 217', 'DDD'),
 ('Eglise', 'Ligne 217', 'DDD'),
