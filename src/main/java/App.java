@@ -16,15 +16,13 @@ import java.util.List;
 
 public class App extends JFrame implements ActionListener {
 
-    private JComboBox<String> fromComboBox;
-    private JComboBox<String> toComboBox;
+    private final JComboBox<String> fromComboBox;
+    private final JComboBox<String> toComboBox;
 
-    private JComboBox<String> modeComboBox;
-    private JComboBox<Integer> changesComboBox;
-    private JButton goButton;
-    private JPanel mapPanel;
-    private JTable resultTable;
-    private MapViewer mapViewer;
+    private final JComboBox<String> modeComboBox;
+    private final JComboBox<Integer> changesComboBox;
+    private final JTable resultTable;
+    private final MapViewer mapViewer;
 
     private int counter = 0;
 
@@ -41,8 +39,8 @@ public class App extends JFrame implements ActionListener {
         toComboBox = new JComboBox<>();
         changesComboBox = new JComboBox<>(new Integer[]{1, 2, 3, 4});
         modeComboBox = new JComboBox<>(new String[]{"DDD","AFTU","YEUP"});
-        goButton = new JButton("GO");
-        mapPanel = new JPanel(new BorderLayout());
+        JButton goButton = new JButton("GO");
+        JPanel mapPanel = new JPanel(new BorderLayout());
         resultTable = new JTable();
         mapViewer = new MapViewer();
 
@@ -94,8 +92,10 @@ public class App extends JFrame implements ActionListener {
                     myLat = (float) position.getLatitude();
                     myLng = (float) position.getLongitude();
 
+                    mapViewer.setMarker(myLat,myLng);
+
                     String query = "WITH tables_bus AS\n" +
-                            "(SELECT DISTINCT bus.nom_long AS nom, latitude AS lat, longitude AS lng, (ABS(latitude - " + myLat + ") + ABS(longitude - " + myLng + ")) AS distance\n" +
+                            "(SELECT DISTINCT bus.nom_long AS nom, (ST_Distance_Sphere(point(" + myLng + "," + myLat + "), point(stop_loc.longitude, stop_loc.latitude)    ) *.000621371192 ) AS distance\n" +
                             "FROM stop_loc, bus\n" +
                             "WHERE bus.type = 'DDD' AND bus.nom_long = stop_loc.name)\n" +
                             "SELECT nom FROM tables_bus WHERE distance = (SELECT MIN(distance) FROM tables_bus);";
@@ -109,28 +109,23 @@ public class App extends JFrame implements ActionListener {
                             String station = resultSet.getString("nom");
                             stations.add(station);
                             System.out.println(station);
-                            selectedFromStation = station;
+
                         }
 
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                    }
+                        String station  = stations.get(0);
 
-// Ajouter les nouvelles stations à la liste existante des JComboBox
-                    for (String station : stations) {
-                        fromComboBox.addItem(station);
-                        toComboBox.addItem(station);
+
                         if (counter % 2 == 0 ){
                             selectedFromStation = station;
                             fromComboBox.setSelectedItem(selectedFromStation);
-                            counter = 1;
                         }else{
                             selectedToStation  = station;
                             toComboBox.setSelectedItem(selectedToStation);
-                            counter = 2;
                         }
+                        counter ++;
 
-
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
                     }
 
                 }
@@ -424,6 +419,8 @@ public class App extends JFrame implements ActionListener {
 
 
     }
+
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

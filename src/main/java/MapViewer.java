@@ -1,7 +1,5 @@
 import org.jxmapviewer.JXMapViewer;
-import org.jxmapviewer.viewer.DefaultTileFactory;
-import org.jxmapviewer.viewer.GeoPosition;
-import org.jxmapviewer.viewer.TileFactoryInfo;
+import org.jxmapviewer.viewer.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,16 +10,20 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
+import java.util.Set;
+import java.util.HashSet;
 
 
 public class MapViewer extends JPanel {
 
     private JXMapViewer mapViewer;
     private Point startPoint;
-    private double moveScale = 0.0001; // Facteur d'échelle pour le déplacement plus lent
+    private Set<Waypoint> waypoints;
 
-    private  float myLat = 0.0F;
-    private  float myLng = 0.0F;
+
+    private final double moveScale = 0.0001; // Facteur d'échelle pour le déplacement plus lent
+
+
 
 
     public MapViewer() {
@@ -31,7 +33,10 @@ public class MapViewer extends JPanel {
         mapViewer = new JXMapViewer();
         mapViewer.setZoom(34); // Zoom initial pour Paris
 
-
+        waypoints = new HashSet<>();
+        WaypointPainter<Waypoint> waypointPainter = new WaypointPainter<>();
+        waypointPainter.setWaypoints(waypoints);
+        mapViewer.setOverlayPainter(waypointPainter);
         // Configuration de la tuile d'usine pour OpenStreetMap
         TileFactoryInfo info = new TileFactoryInfo(1, 17, 17, 256, true, true,
                 "https://a.tile.openstreetmap.org/",
@@ -123,34 +128,35 @@ public class MapViewer extends JPanel {
 
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // Centrer la carte sur Dakar
+        // Centre la carte sur Dakar
         double dakarLatitude = 14.6927;
         double dakarLongitude = -17.4467;
         mapViewer.setCenterPosition(new GeoPosition(dakarLatitude, dakarLongitude));
     }
 
+    // La method setMarker reste inchangée, sauf la déclaration de la variable waypoints
     public void setMarker(double latitude, double longitude) {
-        // Ajout d'un marqueur à une position spécifiée
-        GeoPosition position = new GeoPosition(latitude, longitude);
-        mapViewer.setCenterPosition(position);
-        mapViewer.setZoom(10);
+        // Crée un nouveau marqueur pour la position spécifiée
+        Waypoint newWaypoint = new DefaultWaypoint(new GeoPosition(latitude, longitude));
+
+        // Ajoute le nouveau marqueur à la liste des marqueurs existants
+        waypoints.add(newWaypoint);
+
+        // Définir tous les marqueurs, y compris le nouveau marqueur, dans le waypointPainter
+        WaypointPainter<Waypoint> waypointPainter = new WaypointPainter<>();
+        waypointPainter.setWaypoints(waypoints);
+        mapViewer.setOverlayPainter(waypointPainter);
+
+        // Rafraîchit la carte pour afficher le nouveau marqueur
+        mapViewer.repaint();
+
+        //mapViewer.setZoom(10);
     }
 
     public JXMapViewer getMapViewer(){
         return  this.mapViewer;
     }
 
-    public Point getStartPoint(){
-        return this.startPoint;
-    }
-
-    public float getMyLat(){
-        return this.myLat;
-    }
-
-    public float getMyLng(){
-        return this.myLng;
-    }
 
     public GeoPosition convertPointToGeoPosition(Point point) {
         int zoom = mapViewer.getZoom();
@@ -161,8 +167,8 @@ public class MapViewer extends JPanel {
         Point2D centerPoint = mapViewer.getTileFactory().geoToPixel(centerGeoPos, zoom);
 
         // Get the clicked pixel position relative to the center of the map
-        double x = point.getX() - (getWidth() / 2);
-        double y = point.getY() - (getHeight() / 2);
+        double x = point.getX() - ((double) getWidth() / 2);
+        double y = point.getY() - ((double) getHeight() / 2);
 
         // Calculate the new pixel position by adding the clicked position to the center pixel position
         double newCenterX = ((Point2D) centerPoint).getX() + x;
