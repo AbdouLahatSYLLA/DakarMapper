@@ -87,8 +87,8 @@ public class App extends JFrame implements ActionListener {
                     startPoint = e.getPoint();
                     GeoPosition position = mapViewer.convertPointToGeoPosition(startPoint);
                     System.out.println("Coordonnées : Latitude = " + position.getLatitude() + ", Longitude = " + position.getLongitude());
-                    String selectedFromStation = (String) fromComboBox.getSelectedItem();
-                    String selectedToStation = (String) toComboBox.getSelectedItem();
+                    String selectedFromStation = "";
+                    String selectedToStation = "";
 
 // Votre code existant pour récupérer les nouvelles stations...
                     myLat = (float) position.getLatitude();
@@ -123,24 +123,13 @@ public class App extends JFrame implements ActionListener {
                         if (counter % 2 == 0 ){
                             selectedFromStation = station;
                             fromComboBox.setSelectedItem(selectedFromStation);
-                            counter++;
+                            counter = 1;
                         }else{
                             selectedToStation  = station;
                             toComboBox.setSelectedItem(selectedToStation);
-                            counter++;
+                            counter = 2;
                         }
 
-
-                    }
-
-
-
-// Rétablir l'élément sélectionné par l'utilisateur (s'il existe toujours dans la nouvelle liste)
-                    if (selectedFromStation != null && stations.contains(selectedFromStation)) {
-
-                    }
-
-                    if (selectedToStation != null && stations.contains(selectedToStation)) {
 
                     }
 
