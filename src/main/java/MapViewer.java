@@ -11,19 +11,26 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.geom.Point2D;
+
 
 public class MapViewer extends JPanel {
 
     private JXMapViewer mapViewer;
     private Point startPoint;
-    private double moveScale = 0.001; // Facteur d'échelle pour le déplacement plus lent
+    private double moveScale = 0.0001; // Facteur d'échelle pour le déplacement plus lent
+
+    private  float myLat = 0.0F;
+    private  float myLng = 0.0F;
+
 
     public MapViewer() {
         setLayout(new BorderLayout());
 
         // Création du JXMapViewer
         mapViewer = new JXMapViewer();
-        mapViewer.setZoom(10); // Zoom initial pour Paris
+        mapViewer.setZoom(40); // Zoom initial pour Paris
+
 
         // Configuration de la tuile d'usine pour OpenStreetMap
         TileFactoryInfo info = new TileFactoryInfo(1, 17, 17, 256, true, true,
@@ -47,10 +54,9 @@ public class MapViewer extends JPanel {
             public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     startPoint = e.getPoint();
-                    GeoPosition position = mapViewer.convertPointToGeoPosition(startPoint);
-                    System.out.println("Coordonnées : Latitude = " + position.getLatitude() + ", Longitude = " + position.getLongitude());
                 }
             }
+
 
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -130,5 +136,41 @@ public class MapViewer extends JPanel {
         mapViewer.setZoom(10);
     }
 
+    public JXMapViewer getMapViewer(){
+        return  this.mapViewer;
+    }
 
+    public Point getStartPoint(){
+        return this.startPoint;
+    }
+
+    public float getMyLat(){
+        return this.myLat;
+    }
+
+    public float getMyLng(){
+        return this.myLng;
+    }
+
+    public GeoPosition convertPointToGeoPosition(Point point) {
+        int zoom = mapViewer.getZoom();
+        int tileSize = mapViewer.getTileFactory().getTileSize(zoom);
+
+        // Get the current center GeoPosition and the top-left pixel position of the map
+        GeoPosition centerGeoPos = mapViewer.getCenterPosition();
+        Point2D centerPoint = mapViewer.getTileFactory().geoToPixel(centerGeoPos, zoom);
+
+        // Get the clicked pixel position relative to the center of the map
+        double x = point.getX() - (getWidth() / 2);
+        double y = point.getY() - (getHeight() / 2);
+
+        // Calculate the new pixel position by adding the clicked position to the center pixel position
+        double newCenterX = ((Point2D) centerPoint).getX() + x;
+        double newCenterY = centerPoint.getY() + y;
+
+        // Convert the new pixel position to a GeoPosition
+        GeoPosition clickedGeoPos = mapViewer.getTileFactory().pixelToGeo(new Point2D.Double(newCenterX, newCenterY), zoom);
+
+        return clickedGeoPos;
+    }
 }

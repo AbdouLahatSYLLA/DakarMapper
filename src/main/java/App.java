@@ -1,12 +1,18 @@
+import org.jxmapviewer.viewer.GeoPosition;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import org.jxmapviewer.JXMapViewer;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class App extends JFrame implements ActionListener {
 
@@ -19,6 +25,9 @@ public class App extends JFrame implements ActionListener {
     private JPanel mapPanel;
     private JTable resultTable;
     private MapViewer mapViewer;
+
+    public  float myLat = 0.0F;
+    public  float myLng = 0.0F;
 
     public App() {
         setTitle("DakarMapper");
@@ -66,6 +75,21 @@ public class App extends JFrame implements ActionListener {
 
         // Ajout d'un écouteur de bouton pour le bouton "GO"
         goButton.addActionListener(this);
+
+        JXMapViewer mymapviewer = mapViewer.getMapViewer();
+        mymapviewer.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Point startPoint;
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    startPoint = e.getPoint();
+                    GeoPosition position = mapViewer.convertPointToGeoPosition(startPoint);
+                    System.out.println("Coordonnées : Latitude = " + position.getLatitude() + ", Longitude = " + position.getLongitude());
+                    myLat = (float) position.getLatitude();
+                    myLng = (float) position.getLongitude();
+                }
+            }
+        });
     }
 
     private void populateComboBoxes() {
@@ -350,7 +374,23 @@ public class App extends JFrame implements ActionListener {
                 }
             }
         }
+
+
+
     }
+
+    // Setter for the 'fromComboBox'
+    public void setFromComboBoxItems(String[] items) {
+        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(items);
+        fromComboBox.setModel(comboBoxModel);
+    }
+
+    // Setter for the 'toComboBox'
+    public void setToComboBoxItems(String[] items) {
+        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(items);
+        toComboBox.setModel(comboBoxModel);
+    }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
