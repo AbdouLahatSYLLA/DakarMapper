@@ -29,7 +29,7 @@ public class MapViewer extends JPanel {
 
         // Création du JXMapViewer
         mapViewer = new JXMapViewer();
-        mapViewer.setZoom(40); // Zoom initial pour Paris
+        mapViewer.setZoom(34); // Zoom initial pour Paris
 
 
         // Configuration de la tuile d'usine pour OpenStreetMap

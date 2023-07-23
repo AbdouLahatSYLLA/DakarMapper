@@ -26,6 +26,8 @@ public class App extends JFrame implements ActionListener {
     private JTable resultTable;
     private MapViewer mapViewer;
 
+    private int counter = 0;
+
     public  float myLat = 0.0F;
     public  float myLng = 0.0F;
 
@@ -85,8 +87,63 @@ public class App extends JFrame implements ActionListener {
                     startPoint = e.getPoint();
                     GeoPosition position = mapViewer.convertPointToGeoPosition(startPoint);
                     System.out.println("Coordonnées : Latitude = " + position.getLatitude() + ", Longitude = " + position.getLongitude());
+                    String selectedFromStation = (String) fromComboBox.getSelectedItem();
+                    String selectedToStation = (String) toComboBox.getSelectedItem();
+
+// Votre code existant pour récupérer les nouvelles stations...
                     myLat = (float) position.getLatitude();
                     myLng = (float) position.getLongitude();
+
+                    String query = "WITH tables_bus AS\n" +
+                            "(SELECT DISTINCT bus.nom_long AS nom, latitude AS lat, longitude AS lng, (ABS(latitude - " + myLat + ") + ABS(longitude - " + myLng + ")) AS distance\n" +
+                            "FROM stop_loc, bus\n" +
+                            "WHERE bus.type = 'DDD' AND bus.nom_long = stop_loc.name)\n" +
+                            "SELECT nom FROM tables_bus WHERE distance = (SELECT MIN(distance) FROM tables_bus);";
+                    List<String> stations = new ArrayList<>();
+
+                    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
+                         Statement statement = connection.createStatement();
+                         ResultSet resultSet = statement.executeQuery(query)) {
+
+                        while (resultSet.next()) {
+                            String station = resultSet.getString("nom");
+                            stations.add(station);
+                            System.out.println(station);
+                            selectedFromStation = station;
+                        }
+
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+
+// Ajouter les nouvelles stations à la liste existante des JComboBox
+                    for (String station : stations) {
+                        fromComboBox.addItem(station);
+                        toComboBox.addItem(station);
+                        if (counter % 2 == 0 ){
+                            selectedFromStation = station;
+                            fromComboBox.setSelectedItem(selectedFromStation);
+                            counter++;
+                        }else{
+                            selectedToStation  = station;
+                            toComboBox.setSelectedItem(selectedToStation);
+                            counter++;
+                        }
+
+
+                    }
+
+
+
+// Rétablir l'élément sélectionné par l'utilisateur (s'il existe toujours dans la nouvelle liste)
+                    if (selectedFromStation != null && stations.contains(selectedFromStation)) {
+
+                    }
+
+                    if (selectedToStation != null && stations.contains(selectedToStation)) {
+
+                    }
+
                 }
             }
         });
@@ -378,19 +435,6 @@ public class App extends JFrame implements ActionListener {
 
 
     }
-
-    // Setter for the 'fromComboBox'
-    public void setFromComboBoxItems(String[] items) {
-        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(items);
-        fromComboBox.setModel(comboBoxModel);
-    }
-
-    // Setter for the 'toComboBox'
-    public void setToComboBoxItems(String[] items) {
-        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(items);
-        toComboBox.setModel(comboBoxModel);
-    }
-
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
