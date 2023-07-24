@@ -10,19 +10,23 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
+import org.jxmapviewer.painter.CompoundPainter;
 
 
 public class MapViewer extends JPanel {
 
-    private JXMapViewer mapViewer;
+    private final JXMapViewer mapViewer;
     private Point startPoint;
     private Set<Waypoint> waypoints;
 
 
     private final double moveScale = 0.0001; // Facteur d'échelle pour le déplacement plus lent
     private WaypointPainter<Waypoint> waypointPainter;
+    private List<GeoPosition> linePoints = new ArrayList<>();
 
 
     public MapViewer() {
@@ -30,7 +34,7 @@ public class MapViewer extends JPanel {
 
         // Création du JXMapViewer
         mapViewer = new JXMapViewer();
-        mapViewer.setZoom(23); // Zoom initial pour Paris
+        mapViewer.setZoom(25); // Zoom initial pour Paris
 
         waypoints = new HashSet<>();
          waypointPainter = new WaypointPainter<>();
@@ -133,6 +137,34 @@ public class MapViewer extends JPanel {
         mapViewer.setCenterPosition(new GeoPosition(dakarLatitude, dakarLongitude));
     }
 
+
+    public void addRoute(double startLatitude, double startLongitude, double endLatitude, double endLongitude) {
+        // Met à jour les points de départ et d'arrivée
+        GeoPosition startPoint = new GeoPosition(startLatitude, startLongitude);
+        GeoPosition endPoint = new GeoPosition(endLatitude, endLongitude);
+
+        // Ajoute les marqueurs de départ et d'arrivée au WaypointPainter
+        Set<Waypoint> waypoints = new HashSet<>();
+        waypoints.add(new DefaultWaypoint(startPoint));
+        waypoints.add(new DefaultWaypoint(endPoint));
+        waypointPainter.setWaypoints(waypoints);
+
+        // Créez une liste pour stocker les points pour la ligne
+        List<GeoPosition> linePoints = new ArrayList<>();
+        linePoints.add(startPoint);
+        linePoints.add(endPoint);
+
+        // Créez une instance de RoutePainter en passant la liste de points pour la ligne
+        RoutePainter routePainter = new RoutePainter(linePoints);
+
+        // Ajoutez le RoutePainter au JXMapViewer
+        mapViewer.setOverlayPainter(routePainter);
+
+        // Rafraîchit le JXMapViewer pour afficher les marqueurs et la ligne
+        mapViewer.repaint();
+    }
+
+
     // La method setMarker reste inchangée, sauf la déclaration de la variable waypoints
     public void setMarker(double latitude, double longitude) {
         // Crée un nouveau marqueur pour la position spécifiée
@@ -151,6 +183,9 @@ public class MapViewer extends JPanel {
 
         //mapViewer.setZoom(10);
     }
+
+
+
     public void clear() {
         waypoints.clear(); // Efface tous les marqueurs en vidant la liste des marqueurs
 

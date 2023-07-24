@@ -12,8 +12,7 @@ import org.jxmapviewer.JXMapViewer;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 
 
 public class App extends JFrame implements ActionListener {
@@ -28,10 +27,10 @@ public class App extends JFrame implements ActionListener {
 
     private int counter = 0;
 
-    public  float myLat = 0.0F;
-    public  float myLng = 0.0F;
+    private  float myLat = 0.0F;
+    private  float myLng = 0.0F;
 
-     private boolean isAlreadyOneClick;
+
 
 
 
@@ -95,13 +94,24 @@ public class App extends JFrame implements ActionListener {
         JXMapViewer mymapviewer = mapViewer.getMapViewer();
 
         resultTable.addMouseListener(new MouseAdapter() {
+            String fromStop ;
+            String toStop ;
+
+            String line1 ;
+
+            String line ;
+
+            String changeStop ;
+
+            String line2 ;
+
 
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
                 System.out.println("click");
                 int row = resultTable.getSelectedRow();
-                int col = resultTable.getSelectedColumn();
-                Object value = resultTable.getValueAt(row, col);
+
+
                 int nb = resultTable.getColumnCount();
                 System.out.println("nb : " + nb);
 
@@ -110,18 +120,57 @@ public class App extends JFrame implements ActionListener {
 
                 }else if (nb == 5){
                     System.out.println("click in the 5 rows");
-
-                }else{
-                    //nb == 7
                     for(int i = 0; i< nb;i++){
                         Object val = resultTable.getValueAt(row, i);
                         System.out.println("TableClicked value: " + val);
+                        if(i==0)
+                            fromStop = (String) val;
+
+                        if(i==1)
+                            line1 = (String) val;
+                        if(i==2)
+                            changeStop = (String) val;
+                        if(i==3)
+                            line2 = (String) val;
+                        if(i==4)
+                            toStop = (String) val;
+
+
                     }
+                    String mode = (String) modeComboBox.getSelectedItem();
+                    System.out.println("mode : " + mode);
+                    assert mode != null;
+                    if(mode.equals("DDD") || mode.equals("AFTU") ) {
+                        String query = "SELECT route from itineraire where type = '" + mode + "' AND ligne='"+ line1 +"' OR ligne ='"+line2+"';" ;
+                        List<String> routes = new ArrayList<>();
+
+                        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
+                             Statement statement = connection.createStatement();
+                             ResultSet resultSet = statement.executeQuery(query)) {
+                            boolean isFirst = true;
+                            while (resultSet.next()) {
+                                String route = resultSet.getString("route");
+                                if(isFirst){
+                                    List<String> stationsEntreFromChange = getStationsEntre(fromStop, changeStop, route);
+                                    isFirst = false;
+                                }else{
+                                    List<String> stationsEntreChangeStop = getStationsEntre(changeStop, toStop, route);
+                                    isFirst = true;
+                                }
+
+                                routes.add(route);
+                                System.out.println(route);
+
+                            }
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+                }else{
+                    //nb == 7
+
                 }
-
-
-                // Add your code here for the actions to be performed on double-click
-
             }
 
         });
@@ -141,7 +190,14 @@ public class App extends JFrame implements ActionListener {
                     myLat = (float) position.getLatitude();
                     myLng = (float) position.getLongitude();
 
-                    mapViewer.setMarker(myLat,myLng);
+
+                    mapViewer.addRoute(myLat,myLng, 14.6688528, -17.4405632);
+                   // mapViewer.setMarker(14.6688528,-17.4405632);
+                   // mapViewer.setMarker(myLat,myLng);
+
+
+
+
                     String mode = (String) modeComboBox.getSelectedItem();
                     System.out.println("mode : " + mode);
 
@@ -513,6 +569,25 @@ public class App extends JFrame implements ActionListener {
 
 
 
+    }
+
+    private static List<String> getStationsEntre(String stationA, String stationB, String itineraire) {
+        List<String> stations = new ArrayList<>();
+        String[] stationsArray = itineraire.split(" – ");
+        boolean isBetween = false;
+
+        for (String station : stationsArray) {
+            if (station.equals(stationA)) {
+                isBetween = true;
+            } else if (station.equals(stationB)) {
+                isBetween = false;
+                break; // Arrêter dès que la station B est atteinte (pour exclure la station B elle-même)
+            } else if (isBetween) {
+                stations.add(station);
+            }
+        }
+
+        return stations;
     }
 
 
