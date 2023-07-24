@@ -12,6 +12,8 @@ import org.jxmapviewer.JXMapViewer;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class App extends JFrame implements ActionListener {
@@ -29,6 +31,10 @@ public class App extends JFrame implements ActionListener {
     public  float myLat = 0.0F;
     public  float myLng = 0.0F;
 
+     private boolean isAlreadyOneClick;
+
+
+
     public App() {
         setTitle("DakarMapper");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,9 +46,11 @@ public class App extends JFrame implements ActionListener {
         changesComboBox = new JComboBox<>(new Integer[]{1, 2, 3, 4});
         modeComboBox = new JComboBox<>(new String[]{"DDD","AFTU","YEUP"});
         JButton goButton = new JButton("GO");
+        JButton clearButton = new JButton("Clear");
         JPanel mapPanel = new JPanel(new BorderLayout());
         resultTable = new JTable();
         mapViewer = new MapViewer();
+
 
         // Création du panneau supérieur avec les espaces de saisie et le bouton
         JPanel topPanel = new JPanel();
@@ -55,6 +63,7 @@ public class App extends JFrame implements ActionListener {
         topPanel.add(new JLabel("Mode: "));
         topPanel.add(modeComboBox);
         topPanel.add(goButton);
+        topPanel.add(clearButton);
 
         // Ajout d'un gestionnaire de disposition
         setLayout(new BorderLayout());
@@ -75,8 +84,48 @@ public class App extends JFrame implements ActionListener {
 
         // Ajout d'un écouteur de bouton pour le bouton "GO"
         goButton.addActionListener(this);
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Efface les marqueurs en vidant la liste des marqueurs
+               mapViewer.clear();
+            }
+        });
 
         JXMapViewer mymapviewer = mapViewer.getMapViewer();
+
+        resultTable.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+                System.out.println("click");
+                int row = resultTable.getSelectedRow();
+                int col = resultTable.getSelectedColumn();
+                Object value = resultTable.getValueAt(row, col);
+                int nb = resultTable.getColumnCount();
+                System.out.println("nb : " + nb);
+
+                if(nb == 3){
+                    System.out.println("click in the 3 rows");
+
+                }else if (nb == 5){
+                    System.out.println("click in the 5 rows");
+
+                }else{
+                    //nb == 7
+                    for(int i = 0; i< nb;i++){
+                        Object val = resultTable.getValueAt(row, i);
+                        System.out.println("TableClicked value: " + val);
+                    }
+                }
+
+
+                // Add your code here for the actions to be performed on double-click
+
+            }
+
+        });
+
         mymapviewer.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -85,56 +134,102 @@ public class App extends JFrame implements ActionListener {
                     startPoint = e.getPoint();
                     GeoPosition position = mapViewer.convertPointToGeoPosition(startPoint);
                     System.out.println("Coordonnées : Latitude = " + position.getLatitude() + ", Longitude = " + position.getLongitude());
-                    String selectedFromStation = "";
-                    String selectedToStation = "";
+                    String selectedFromStation ;
+                    String selectedToStation ;
 
 // Votre code existant pour récupérer les nouvelles stations...
                     myLat = (float) position.getLatitude();
                     myLng = (float) position.getLongitude();
 
                     mapViewer.setMarker(myLat,myLng);
+                    String mode = (String) modeComboBox.getSelectedItem();
+                    System.out.println("mode : " + mode);
 
-                    String query = "WITH tables_bus AS\n" +
-                            "(SELECT DISTINCT bus.nom_long AS nom, (ST_Distance_Sphere(point(" + myLng + "," + myLat + "), point(stop_loc.longitude, stop_loc.latitude)    ) *.000621371192 ) AS distance\n" +
-                            "FROM stop_loc, bus\n" +
-                            "WHERE bus.type = 'DDD' AND bus.nom_long = stop_loc.name)\n" +
-                            "SELECT nom FROM tables_bus WHERE distance = (SELECT MIN(distance) FROM tables_bus);";
-                    List<String> stations = new ArrayList<>();
+                    assert mode != null;
+                    if(mode.equals("DDD") || mode.equals("AFTU") ){
+                        String query = "WITH tables_bus AS\n" +
+                                "(SELECT DISTINCT bus.nom_long AS nom, (ST_Distance_Sphere(point(" + myLng + "," + myLat + "), point(stop_loc.longitude, stop_loc.latitude)    ) *.000621371192 ) AS distance\n" +
+                                "FROM stop_loc, bus\n" +
+                                "WHERE bus.type = '" + mode + "' AND bus.nom_long = stop_loc.name)\n" +
+                                "SELECT nom FROM tables_bus WHERE distance = (SELECT MIN(distance) FROM tables_bus);";
+                        List<String> stations = new ArrayList<>();
 
-                    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
-                         Statement statement = connection.createStatement();
-                         ResultSet resultSet = statement.executeQuery(query)) {
+                        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
+                             Statement statement = connection.createStatement();
+                             ResultSet resultSet = statement.executeQuery(query)) {
 
-                        while (resultSet.next()) {
-                            String station = resultSet.getString("nom");
-                            stations.add(station);
-                            System.out.println(station);
+                            while (resultSet.next()) {
+                                String station = resultSet.getString("nom");
+                                stations.add(station);
+                                System.out.println(station);
 
+                            }
+
+                            String station  = stations.get(0);
+
+
+                            if (counter % 2 == 0 ){
+                                selectedFromStation = station;
+                                fromComboBox.setSelectedItem(selectedFromStation);
+                            }else{
+                                selectedToStation  = station;
+                                toComboBox.setSelectedItem(selectedToStation);
+                            }
+                            counter ++;
+
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
                         }
 
-                        String station  = stations.get(0);
+                    }else{
+                        // AFTU ou DDD
+                        String query = "WITH tables_bus AS\n" +
+                                "(SELECT DISTINCT bus.nom_long AS nom, (ST_Distance_Sphere(point(" + myLng + "," + myLat + "), point(stop_loc.longitude, stop_loc.latitude)    ) *.000621371192 ) AS distance\n" +
+                                "FROM stop_loc, bus\n" +
+                                "WHERE  bus.nom_long = stop_loc.name)\n" +
+                                "SELECT nom FROM tables_bus WHERE distance = (SELECT MIN(distance) FROM tables_bus);";
+                        List<String> stations = new ArrayList<>();
+
+                        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
+                             Statement statement = connection.createStatement();
+                             ResultSet resultSet = statement.executeQuery(query)) {
+
+                            while (resultSet.next()) {
+                                String station = resultSet.getString("nom");
+                                stations.add(station);
+                                System.out.println(station);
+
+                            }
+
+                            String station  = stations.get(0);
 
 
-                        if (counter % 2 == 0 ){
-                            selectedFromStation = station;
-                            fromComboBox.setSelectedItem(selectedFromStation);
-                        }else{
-                            selectedToStation  = station;
-                            toComboBox.setSelectedItem(selectedToStation);
+                            if (counter % 2 == 0 ){
+                                selectedFromStation = station;
+                                fromComboBox.setSelectedItem(selectedFromStation);
+                            }else{
+                                selectedToStation  = station;
+                                toComboBox.setSelectedItem(selectedToStation);
+                            }
+                            counter ++;
+
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
                         }
-                        counter ++;
-
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
                     }
 
                 }
             }
         });
+
+
+
     }
 
+
+
     private void populateComboBoxes() {
-        String query = "SELECT DISTINCT nom_long FROM bus WHERE type = 'DDD' ORDER BY nom_long ASC";
+        String query = "SELECT DISTINCT nom_long FROM bus  ORDER BY nom_long ASC";
         List<String> stations = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");

@@ -60,6 +60,19 @@ INSERT INTO Itineraire (Ligne, Route) VALUES ('Ligne 233', 'Baux Maraichers - Pa
 
 INSERT INTO Itineraire (Ligne, Route) VALUES ('Ligne 234', 'Jaxaay - Leclerc - Mosquée Niakoul Rab - Ecole Panthéon - 2 voies Jaxaay - Station Keur Massar - Croisement Keur Massar - Fass Mbao - Diamagueune - Poste Thiaroye - Autoroute - Péage - AIBD');
 
-INSERT INTO Itineraire (Ligne, Route) VALUES ('Ligne 401', 'Ouakam ↔ Sphère - Terminus Ouakam - Mamelles - Croisement Almadies - Ngor- Yoff - Rte de l’Aéroport - Foire - VDN- Direction Générale DDD - Rond-Point JVC- Rond-Point Liberté 6 - Itinéraire 213 - Police Grand Yoff - Pharmacie Patte d’Oie - Terminus Sphère');
+INSERT INTO Itineraire (Ligne, Route) VALUES ('Ligne 401', ' Terminus Ouakam - Mamelles - Croisement Almadies - Ngor- Yoff - Rte de l’Aéroport - Foire - VDN- Direction Générale DDD - Rond-Point JVC- Rond-Point Liberté 6 - Itinéraire 213 - Police Grand Yoff - Pharmacie Patte d’Oie - Terminus Sphère');
 
-INSERT INTO Itineraire (Ligne, Route) VALUES ('Ligne 402', 'Ouakam ↔ Cité Gadaye - Terminus Ouakam - Marché Ouakam - Carrefour Yarakh - Poste Mamelles - Almadies - Phare des Mamelles - corniche Ouest - Yoff APECSY - Cité Gadaye');
+INSERT INTO Itineraire (Ligne, Route) VALUES ('Ligne 402', ' Terminus Ouakam - Marché Ouakam - Carrefour Yarakh - Poste Mamelles - Almadies - Phare des Mamelles - corniche Ouest - Yoff APECSY - Cité Gadaye');
+
+INSERT INTO Itineraire (Ligne, Route) VALUES ('Ligne 403', 'PA – Hôpital Dalal Diam – Itinéraire 227 – 2 voies Jaxaay – Sedima – Péage – AIBD – Sphère Ministérielle');
+
+INSERT INTO Itineraire (Ligne, Route) VALUES ('Ligne 404A', 'Leclerc – Ave Albert Sarraut – Itinéraire ligne 13 – Colobane – Autoroute à Péage – Diamniadio – Itinéraire ligne 228 – Diass – Croisement Kiréne – Croisement zone fret – AIBD');
+
+INSERT INTO Itineraire (Ligne, Route) VALUES ('Ligne 404B', 'Leclerc – Ave Albert Sarraut – Itinéraire ligne 13 – Colobane – Autoroute à Péage – Poste Thiaroye –  AIBD');
+
+INSERT INTO Itineraire (Ligne, Route) VALUES ('Ligne 405', 'Dieuppeul – Jet D’eau – Bourguiba – Allées Seydou Nourou Tall – Canal 4 – Autoroute – Péage – AIBD');
+
+ALTER TABLE Itineraire ADD COLUMN type VARCHAR(10) DEFAULT 'DDD';
+
+UPDATE Itineraire SET type = 'DDD';
+

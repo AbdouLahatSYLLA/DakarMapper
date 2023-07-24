@@ -22,8 +22,7 @@ public class MapViewer extends JPanel {
 
 
     private final double moveScale = 0.0001; // Facteur d'échelle pour le déplacement plus lent
-
-
+    private WaypointPainter<Waypoint> waypointPainter;
 
 
     public MapViewer() {
@@ -31,10 +30,10 @@ public class MapViewer extends JPanel {
 
         // Création du JXMapViewer
         mapViewer = new JXMapViewer();
-        mapViewer.setZoom(34); // Zoom initial pour Paris
+        mapViewer.setZoom(23); // Zoom initial pour Paris
 
         waypoints = new HashSet<>();
-        WaypointPainter<Waypoint> waypointPainter = new WaypointPainter<>();
+         waypointPainter = new WaypointPainter<>();
         waypointPainter.setWaypoints(waypoints);
         mapViewer.setOverlayPainter(waypointPainter);
         // Configuration de la tuile d'usine pour OpenStreetMap
@@ -151,6 +150,19 @@ public class MapViewer extends JPanel {
         mapViewer.repaint();
 
         //mapViewer.setZoom(10);
+    }
+    public void clear() {
+        waypoints.clear(); // Efface tous les marqueurs en vidant la liste des marqueurs
+
+        // Crée un nouveau WaypointPainter sans marqueurs
+        WaypointPainter<Waypoint> newWaypointPainter = new WaypointPainter<>();
+        newWaypointPainter.setWaypoints(waypoints);
+
+        // Affecte le nouveau WaypointPainter au mapViewer
+        mapViewer.setOverlayPainter(newWaypointPainter);
+
+        // Rafraîchit la carte pour appliquer les changements
+        mapViewer.repaint();
     }
 
     public JXMapViewer getMapViewer(){
