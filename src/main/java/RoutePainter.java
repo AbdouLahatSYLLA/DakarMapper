@@ -64,4 +64,13 @@ public class RoutePainter implements Painter<JXMapViewer> {
             lastY = (int) pt.getY();
         }
     }
+
+    public void setRoute(List<GeoPosition> routePoints) {
+        this.track.addAll(routePoints);
+    }
+
+    public void clear(){
+        track = new ArrayList<GeoPosition>();
+    }
+
 }

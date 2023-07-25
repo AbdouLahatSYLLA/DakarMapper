@@ -190,10 +190,10 @@ public class App extends JFrame implements ActionListener {
                     myLat = (float) position.getLatitude();
                     myLng = (float) position.getLongitude();
 
-
+                    mapViewer.setMarker(14.6688528,-17.4405632);
+                    mapViewer.setMarker(myLat,myLng);
                     mapViewer.addRoute(myLat,myLng, 14.6688528, -17.4405632);
-                   // mapViewer.setMarker(14.6688528,-17.4405632);
-                   // mapViewer.setMarker(myLat,myLng);
+
 
 
 

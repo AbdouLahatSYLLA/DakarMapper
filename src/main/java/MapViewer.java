@@ -23,6 +23,8 @@ public class MapViewer extends JPanel {
     private Point startPoint;
     private Set<Waypoint> waypoints;
 
+    private RoutePainter routePainter;
+
 
     private final double moveScale = 0.0001; // Facteur d'échelle pour le déplacement plus lent
     private WaypointPainter<Waypoint> waypointPainter;
@@ -31,6 +33,7 @@ public class MapViewer extends JPanel {
 
     public MapViewer() {
         setLayout(new BorderLayout());
+        routePainter = new RoutePainter(new ArrayList<>());
 
         // Création du JXMapViewer
         mapViewer = new JXMapViewer();
@@ -155,7 +158,7 @@ public class MapViewer extends JPanel {
         linePoints.add(endPoint);
 
         // Créez une instance de RoutePainter en passant la liste de points pour la ligne
-        RoutePainter routePainter = new RoutePainter(linePoints);
+        routePainter.setRoute(linePoints);
 
         // Ajoutez le RoutePainter au JXMapViewer
         mapViewer.setOverlayPainter(routePainter);
@@ -173,22 +176,18 @@ public class MapViewer extends JPanel {
         // Ajoute le nouveau marqueur à la liste des marqueurs existants
         waypoints.add(newWaypoint);
 
-        // Définir tous les marqueurs, y compris le nouveau marqueur, dans le waypointPainter
-        WaypointPainter<Waypoint> waypointPainter = new WaypointPainter<>();
+        // Met à jour les marqueurs dans le waypointPainter existant
         waypointPainter.setWaypoints(waypoints);
-        mapViewer.setOverlayPainter(waypointPainter);
 
         // Rafraîchit la carte pour afficher le nouveau marqueur
         mapViewer.repaint();
-
-        //mapViewer.setZoom(10);
     }
 
 
 
     public void clear() {
         waypoints.clear(); // Efface tous les marqueurs en vidant la liste des marqueurs
-
+        routePainter.clear();
         // Crée un nouveau WaypointPainter sans marqueurs
         WaypointPainter<Waypoint> newWaypointPainter = new WaypointPainter<>();
         newWaypointPainter.setWaypoints(waypoints);
