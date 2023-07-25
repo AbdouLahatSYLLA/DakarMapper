@@ -88,6 +88,7 @@ public class App extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 // Efface les marqueurs en vidant la liste des marqueurs
                mapViewer.clear();
+
             }
         });
 

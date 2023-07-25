@@ -41,6 +41,7 @@ public class RoutePainter implements Painter<JXMapViewer> {
 
         drawRoute(g, map);
 
+
         g.dispose();
     }
 
@@ -68,6 +69,8 @@ public class RoutePainter implements Painter<JXMapViewer> {
     public void setRoute(List<GeoPosition> routePoints) {
         this.track.addAll(routePoints);
     }
+
+
 
     public void clear(){
         track = new ArrayList<GeoPosition>();
