@@ -1,6 +1,4 @@
 import org.jxmapviewer.JXMapViewer;
-import org.jxmapviewer.viewer.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,9 +10,7 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.util.*;
 import java.util.List;
-
 import org.jxmapviewer.painter.CompoundPainter;
-
 import org.jxmapviewer.painter.Painter;
 import org.jxmapviewer.viewer.DefaultTileFactory;
 import org.jxmapviewer.viewer.DefaultWaypoint;
@@ -147,6 +143,7 @@ public class MapViewer extends JPanel {
         double dakarLongitude = -17.4467;
         mapViewer.setCenterPosition(new GeoPosition(dakarLatitude, dakarLongitude));
     }
+
 
 
     public void addRoute(double startLatitude, double startLongitude, double endLatitude, double endLongitude) {

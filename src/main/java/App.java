@@ -138,12 +138,20 @@ public class App extends JFrame implements ActionListener {
 
 
                     }
+                    mapViewer.clear();
+
                     String mode = (String) modeComboBox.getSelectedItem();
                     System.out.println("mode : " + mode);
                     assert mode != null;
                     if(mode.equals("DDD") || mode.equals("AFTU") ) {
                         String query = "SELECT route from itineraire where type = '" + mode + "' AND ligne='"+ line1 +"' OR ligne ='"+line2+"';" ;
-                        List<String> routes = new ArrayList<>();
+
+                        String [] itiLigne1 ;
+                        String [] itiLigne2 ;
+                        List<String> stationsEntreChangeStop = new ArrayList<>();
+                        List<String> stationsEntreFromChange = new ArrayList<>();
+
+                        //recuperation des itineraire et traitement pour prendre que les stations qui m'interesse
 
                         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
                              Statement statement = connection.createStatement();
@@ -151,18 +159,82 @@ public class App extends JFrame implements ActionListener {
                             boolean isFirst = true;
                             while (resultSet.next()) {
                                 String route = resultSet.getString("route");
-                                if(isFirst){
-                                    List<String> stationsEntreFromChange = getStationsEntre(fromStop, changeStop, route);
-                                    isFirst = false;
-                                }else{
-                                    List<String> stationsEntreChangeStop = getStationsEntre(changeStop, toStop, route);
-                                    isFirst = true;
-                                }
-
-                                routes.add(route);
                                 System.out.println(route);
 
+                                if (isFirst) {
+
+                                    itiLigne1 = splitted(route," - ");
+                                    stationsEntreFromChange = getStationsEntre(fromStop, changeStop, itiLigne1);
+                                    isFirst = false;
+                                } else {
+                                    itiLigne2 = splitted(route," - ");
+                                    stationsEntreChangeStop = getStationsEntre(changeStop, toStop, itiLigne2);
+                                    isFirst = true;
+                                }
                             }
+
+
+
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        // recuperer les coord des stations qui m'interessent
+                        List<GeoPosition> myTrack = new ArrayList<>();
+                        String query2 = "SELECT DISTINCT latitude, longitude FROM stop_loc WHERE name IN (";
+                        for (int i = 0; i < stationsEntreFromChange.size(); i++) {
+                            query2 += "'" + stationsEntreFromChange.get(i) + "'";
+                            if (i < stationsEntreFromChange.size() - 1) {
+                                query2 += ",";
+                            }
+                        }
+                        query2 += ");";
+                        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
+                             Statement statement = connection.createStatement();
+                             ResultSet resultSet = statement.executeQuery(query2)) {
+
+                            while (resultSet.next()) {
+                                Float lat = resultSet.getFloat("latitude");
+                                Float lng = resultSet.getFloat("longitude");
+
+                                myTrack.add(new GeoPosition(lat,lng));
+                            }
+
+                            int n = myTrack.size();
+                            for (int i = 0; i < n-1 ; i++) {
+                                mapViewer.addRoute(myTrack.get(i).getLatitude(),myTrack.get(i).getLongitude(),
+                                        myTrack.get(i+1).getLatitude(),myTrack.get(i+1).getLongitude());
+                            }
+
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        String query3 = "SELECT DISTINCT latitude, longitude FROM stop_loc WHERE name IN (";
+                        for (int i = 0; i < stationsEntreChangeStop.size(); i++) {
+                            query3 += "'" + stationsEntreChangeStop.get(i) + "'";
+                            if (i < stationsEntreChangeStop.size() - 1) {
+                                query3 += ",";
+                            }
+                        }
+                        query3 += ");";
+                        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakar_mapper", "root", "12345678");
+                             Statement statement = connection.createStatement();
+                             ResultSet resultSet = statement.executeQuery(query3)) {
+
+                            while (resultSet.next()) {
+                                Float lat = resultSet.getFloat("latitude");
+                                Float lng = resultSet.getFloat("longitude");
+
+                                myTrack.add(new GeoPosition(lat,lng));
+                            }
+
+                            int n = myTrack.size();
+                            for (int i = 0; i < n-1 ; i++) {
+                                mapViewer.addRoute(myTrack.get(i).getLatitude(),myTrack.get(i).getLongitude(),
+                                        myTrack.get(i+1).getLatitude(),myTrack.get(i+1).getLongitude());
+                            }
+
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
@@ -191,13 +263,7 @@ public class App extends JFrame implements ActionListener {
                     myLat = (float) position.getLatitude();
                     myLng = (float) position.getLongitude();
 
-                    mapViewer.setMarker(14.6688528,-17.4405632);
                     mapViewer.setMarker(myLat,myLng);
-                    mapViewer.addRoute(myLat,myLng, 14.6688528, -17.4405632);
-
-
-
-
 
                     String mode = (String) modeComboBox.getSelectedItem();
                     System.out.println("mode : " + mode);
@@ -259,6 +325,7 @@ public class App extends JFrame implements ActionListener {
                             }
 
                             String station  = stations.get(0);
+
 
 
                             if (counter % 2 == 0 ){
@@ -572,24 +639,30 @@ public class App extends JFrame implements ActionListener {
 
     }
 
-    private static List<String> getStationsEntre(String stationA, String stationB, String itineraire) {
+    public static List<String> getStationsEntre(String stationA, String stationB, String [] itineraire) {
         List<String> stations = new ArrayList<>();
-        String[] stationsArray = itineraire.split(" – ");
         boolean isBetween = false;
+        stations.add(stationA);
 
-        for (String station : stationsArray) {
+        for (String station : itineraire) {
             if (station.equals(stationA)) {
                 isBetween = true;
             } else if (station.equals(stationB)) {
                 isBetween = false;
                 break; // Arrêter dès que la station B est atteinte (pour exclure la station B elle-même)
-            } else if (isBetween) {
+            }
+
+            if (isBetween && !station.equals(stationA)) {
                 stations.add(station);
             }
         }
-
+        stations.add(stationB);
         return stations;
     }
+    public static String[] splitted(String word, String regex){
+        return  word.split(regex);
+    }
+
 
 
 
