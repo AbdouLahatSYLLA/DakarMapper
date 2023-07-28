@@ -18,6 +18,7 @@ import org.jxmapviewer.viewer.GeoPosition;
 import org.jxmapviewer.viewer.TileFactoryInfo;
 import org.jxmapviewer.viewer.Waypoint;
 import org.jxmapviewer.viewer.WaypointPainter;
+import org.jxmapviewer.viewer.WaypointRenderer;
 
 
 public class MapViewer extends JPanel {
@@ -187,8 +188,6 @@ public class MapViewer extends JPanel {
         // Rafraîchit la carte pour afficher le nouveau marqueur
         mapViewer.repaint();
     }
-
-
 
     public void clear() {
         waypoints.clear(); // Efface tous les marqueurs en vidant la liste des marqueurs

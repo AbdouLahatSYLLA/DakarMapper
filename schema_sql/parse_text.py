@@ -7,7 +7,7 @@ def lire_fichier(nom_fichier):
 
 
 # Appel de la fonction pour lire les données à partir du fichier
-nom_fichier = "aftu_bus_coord"
+nom_fichier = "NewCordeAFTU"
 donnees_tuple = lire_fichier(nom_fichier)
 
 # Afficher le résultat

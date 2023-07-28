@@ -381,6 +381,16 @@ stations = [
 ]
 
 
+# Coordonnées géographiques de la région de Dakar
+dakar_latitude = 14.7167
+dakar_longitude = -17.4677
+dakar_radius = 0.7  # Ajustez le rayon en fonction de la zone que vous souhaitez couvrir
+
+def is_in_dakar_region(latitude, longitude):
+    # Calculer la distance entre les coordonnées et les coordonnées de Dakar
+    distance = ((latitude - dakar_latitude) ** 2 + (longitude - dakar_longitude) ** 2) ** 0.5
+
+    return distance <= dakar_radius
 
 def geocode_station(station_name):
     base_url = "https://maps.googleapis.com/maps/api/geocode/json"
@@ -396,7 +406,9 @@ def geocode_station(station_name):
                 location = result["geometry"]["location"]
                 latitude = location["lat"]
                 longitude = location["lng"]
-                return latitude, longitude
+
+                if is_in_dakar_region(latitude, longitude):
+                    return latitude, longitude
 
     return None
 
@@ -408,4 +420,4 @@ for station in stations:
         latitude, longitude = coordinates
         print(f"{station}: Latitude = {latitude}, Longitude = {longitude}")
     else:
-        print(f"{station}: Coordonnées non trouvées.")
+        print(f"{station}: Coordonnées non trouvées dans la région de Dakar.")

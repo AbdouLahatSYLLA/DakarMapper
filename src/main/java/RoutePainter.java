@@ -1,8 +1,4 @@
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +13,8 @@ import org.jxmapviewer.viewer.GeoPosition;
 public class RoutePainter implements Painter<JXMapViewer> {
     private Color color = Color.BLUE;
     private boolean antiAlias = true;
+    private int markerSize = 10; // Taille du marqueur personnalisé (cercle)
+    private Color markerColor = Color.RED; // Couleur du marqueur personnalisé (cercle)
 
     private List<GeoPosition> track;
 
@@ -41,6 +39,9 @@ public class RoutePainter implements Painter<JXMapViewer> {
 
         drawRoute(g, map);
 
+        // Dessiner le marqueur personnalisé
+        g.setColor(markerColor);
+        drawMarkers(g, map);
 
         g.dispose();
     }
@@ -66,14 +67,32 @@ public class RoutePainter implements Painter<JXMapViewer> {
         }
     }
 
+    private void drawMarkers(Graphics2D g, JXMapViewer map) {
+        for (GeoPosition gp : track) {
+            // convert geo-coordinate to world bitmap pixel
+            Point2D pt = map.getTileFactory().geoToPixel(gp, map.getZoom());
+
+            int x = (int) pt.getX() - markerSize / 2;
+            int y = (int) pt.getY() - markerSize / 2;
+
+            // Dessiner le marqueur personnalisé (cercle)
+            g.fillOval(x, y, markerSize, markerSize);
+        }
+    }
+
     public void setRoute(List<GeoPosition> routePoints) {
         this.track.addAll(routePoints);
     }
 
-
-
-    public void clear(){
+    public void clear() {
         track = new ArrayList<GeoPosition>();
     }
 
+    public void setMarkerSize(int markerSize) {
+        this.markerSize = markerSize;
+    }
+
+    public void setMarkerColor(Color markerColor) {
+        this.markerColor = markerColor;
+    }
 }

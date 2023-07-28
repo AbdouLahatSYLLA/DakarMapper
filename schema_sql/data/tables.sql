@@ -58,6 +58,7 @@ CREATE TABLE stop_time (
  CREATE TABLE stop_loc (
      name VARCHAR(100),
      latitude FLOAT,
-     longitude FLOAT
+     longitude FLOAT,
+     type VARCHAR(10)
  );
 
