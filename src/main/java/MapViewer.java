@@ -18,7 +18,7 @@ import org.jxmapviewer.viewer.GeoPosition;
 import org.jxmapviewer.viewer.TileFactoryInfo;
 import org.jxmapviewer.viewer.Waypoint;
 import org.jxmapviewer.viewer.WaypointPainter;
-import org.jxmapviewer.viewer.WaypointRenderer;
+
 
 
 public class MapViewer extends JPanel {
@@ -65,6 +65,8 @@ public class MapViewer extends JPanel {
         add(mapViewer, BorderLayout.CENTER);
 
         // Ajout d'un écouteur de souris pour détecter les clics sur la carte
+
+// Ajout d'un écouteur de souris pour détecter les clics sur la carte et le déplacement (glisser-déposer)
         mapViewer.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -72,7 +74,6 @@ public class MapViewer extends JPanel {
                     startPoint = e.getPoint();
                 }
             }
-
 
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -82,19 +83,21 @@ public class MapViewer extends JPanel {
             }
         });
 
-        // Ajout d'un écouteur de la souris pour déplacer la carte
         mapViewer.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 if (startPoint != null) {
                     Point endPoint = e.getPoint();
-                    int dx = startPoint.x - endPoint.x; // Inversion du sens du déplacement
-                    int dy = startPoint.y - endPoint.y; // Inversion du sens du déplacement
+                    int dx = startPoint.x - endPoint.x; // Calcul du déplacement horizontal
+                    int dy = startPoint.y - endPoint.y; // Calcul du déplacement vertical
                     startPoint = endPoint;
 
+                    // Récupère la position géographique du centre actuel de la carte
                     GeoPosition currentCenter = mapViewer.getCenterPosition();
-                    double latitude = currentCenter.getLatitude() + dy * moveScale; // Inversion du sens du déplacement
-                    double longitude = currentCenter.getLongitude() + dx * moveScale; // Inversion du sens du déplacement
+                    double latitude = currentCenter.getLatitude() + dy * moveScale;
+                    double longitude = currentCenter.getLongitude() + dx * moveScale;
+
+                    // Déplace la carte vers la nouvelle position
                     mapViewer.setCenterPosition(new GeoPosition(latitude, longitude));
                 }
             }
@@ -107,12 +110,13 @@ public class MapViewer extends JPanel {
                 int rotation = e.getWheelRotation();
                 int currentZoom = mapViewer.getZoom();
                 if (rotation < 0) {
-                    mapViewer.setZoom(currentZoom - 1);
+                    mapViewer.setZoom(currentZoom + 1); // Pour zoomer, on augmente le niveau de zoom
                 } else {
-                    mapViewer.setZoom(currentZoom + 1);
+                    mapViewer.setZoom(currentZoom - 1); // Pour dézoomer, on diminue le niveau de zoom
                 }
             }
         });
+
 
         // Ajout des boutons "+" et "-"
         JButton zoomInButton = new JButton("+");
@@ -152,6 +156,8 @@ public class MapViewer extends JPanel {
         GeoPosition startPoint = new GeoPosition(startLatitude, startLongitude);
         GeoPosition endPoint = new GeoPosition(endLatitude, endLongitude);
 
+        routePainter.clear();
+        track.clear();
         //track = Arrays.asList(startPoint,endPoint);
         track.add(startPoint);
         track.add(endPoint);
@@ -192,17 +198,21 @@ public class MapViewer extends JPanel {
     public void clear() {
         waypoints.clear(); // Efface tous les marqueurs en vidant la liste des marqueurs
         routePainter.clear();
+
         // Crée un nouveau WaypointPainter sans marqueurs
-        WaypointPainter<Waypoint> newWaypointPainter = new WaypointPainter<>();
-        newWaypointPainter.setWaypoints(waypoints);
-        track = new ArrayList<>();
+        waypointPainter = new WaypointPainter<>();
+        waypointPainter.setWaypoints(waypoints);
 
-        // Affecte le nouveau WaypointPainter au mapViewer
-        mapViewer.setOverlayPainter(newWaypointPainter);
+        // Met à jour le compoundPainter avec les nouveaux painters
+        List<Painter<JXMapViewer>> painters = new ArrayList<Painter<JXMapViewer>>();
+        painters.add(routePainter);
+        painters.add(waypointPainter);
+        CompoundPainter<JXMapViewer> painter = new CompoundPainter<>(painters);
+        mapViewer.setOverlayPainter(painter);
 
-        // Rafraîchit la carte pour appliquer les changements
         mapViewer.repaint();
     }
+
 
     public JXMapViewer getMapViewer(){
         return  this.mapViewer;

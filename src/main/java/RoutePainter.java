@@ -95,4 +95,6 @@ public class RoutePainter implements Painter<JXMapViewer> {
     public void setMarkerColor(Color markerColor) {
         this.markerColor = markerColor;
     }
+
+
 }
