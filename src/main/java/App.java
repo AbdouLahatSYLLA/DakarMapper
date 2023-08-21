@@ -150,7 +150,7 @@ public class App extends JFrame implements ActionListener {
 
                         //recuperation des itineraire et traitement pour prendre que les stations qui m'interesse
 
-                        try (Connection connection = DriverManager.getConnection("jdbc:mysql://35.170.202.167:3306/citymapper", "citymapper", "12345678");
+                        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/dakar_mapper", "root", "12345678");
                              Statement statement = connection.createStatement();
                              ResultSet resultSet = statement.executeQuery(query)) {
 
@@ -177,7 +177,7 @@ public class App extends JFrame implements ActionListener {
                         query2 += ");";
 
 
-                        try (Connection connection = DriverManager.getConnection("jdbc:mysql://35.170.202.167:3306/citymapper", "citymapper", "12345678");
+                        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/dakar_mapper", "root", "12345678");
                              Statement statement = connection.createStatement();
                              ResultSet resultSet = statement.executeQuery(query2)) {
 
@@ -239,7 +239,7 @@ public class App extends JFrame implements ActionListener {
                         }
                     }
                     query2 += ");";
-                    try (Connection connection = DriverManager.getConnection("jdbc:mysql://35.170.202.167:3306/citymapper", "citymapper", "12345678");
+                    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/dakar_mapper", "root", "12345678");
                          Statement statement = connection.createStatement();
                          ResultSet resultSet = statement.executeQuery(query2)) {
 
@@ -304,7 +304,7 @@ public class App extends JFrame implements ActionListener {
                         }
                     }
                     query2 += ");";
-                    try (Connection connection = DriverManager.getConnection("jdbc:mysql://35.170.202.167:3306/citymapper", "citymapper", "12345678");
+                    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/dakar_mapper", "root", "12345678");
                          Statement statement = connection.createStatement();
                          ResultSet resultSet = statement.executeQuery(query2)) {
 
@@ -359,7 +359,7 @@ public class App extends JFrame implements ActionListener {
                                 "SELECT nom FROM tables_bus WHERE distance = (SELECT MIN(distance) FROM tables_bus);";
                         List<String> stations = new ArrayList<>();
 
-                        try (Connection connection = DriverManager.getConnection("jdbc:mysql://35.170.202.167:3306/citymapper", "citymapper", "12345678");
+                        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/dakar_mapper", "root", "12345678");
                              Statement statement = connection.createStatement();
                              ResultSet resultSet = statement.executeQuery(query)) {
 
@@ -395,7 +395,7 @@ public class App extends JFrame implements ActionListener {
                                 "SELECT nom FROM tables_bus WHERE distance = (SELECT MIN(distance) FROM tables_bus);";
                         List<String> stations = new ArrayList<>();
 
-                        try (Connection connection = DriverManager.getConnection("jdbc:mysql://35.170.202.167:3306/citymapper", "citymapper", "12345678");
+                        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/dakar_mapper", "root", "12345678");
                              Statement statement = connection.createStatement();
                              ResultSet resultSet = statement.executeQuery(query)) {
 
@@ -438,7 +438,7 @@ public class App extends JFrame implements ActionListener {
         String query = "SELECT DISTINCT nom_long FROM bus  ORDER BY nom_long ASC";
         List<String> stations = new ArrayList<>();
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://35.170.202.167:3306/citymapper", "citymapper", "12345678");
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/dakar_mapper", "root", "12345678");
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
@@ -474,7 +474,7 @@ public class App extends JFrame implements ActionListener {
         assert mode != null;
         if (mode.equals( "DDD") || mode.equals( "AFTU")) {
             if (changes >= 1) {
-                try (Connection connection = DriverManager.getConnection("jdbc:mysql://35.170.202.167:3306/citymapper", "citymapper", "12345678");
+                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/dakar_mapper", "root", "12345678");
                      Statement statement = connection.createStatement()) {
                     String query = "SELECT DISTINCT A.nom_long, A.ligne, B.nom_long " +
                             "FROM bus as A, bus as B " +
@@ -510,7 +510,7 @@ public class App extends JFrame implements ActionListener {
             }
 
             if (changes >= 2) {
-                try (Connection connection = DriverManager.getConnection("jdbc:mysql://35.170.202.167:3306/citymapper", "citymapper", "12345678");
+                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/dakar_mapper", "root", "12345678");
                      Statement statement = connection.createStatement()) {
                     String query2 = "SELECT distinct A.nom_long, A.ligne, B.nom_long, C.ligne,  D.nom_long \n" +
                             "FROM bus as A, bus as B, bus as C, bus as D\n" +
@@ -551,7 +551,7 @@ public class App extends JFrame implements ActionListener {
             }
 
             if (changes >= 3) {
-                try (Connection connection = DriverManager.getConnection("jdbc:mysql://35.170.202.167:3306/citymapper", "citymapper", "12345678");
+                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/dakar_mapper", "root", "12345678");
                      Statement statement = connection.createStatement()) {
                     String query3 = "SELECT distinct A.nom_long, A.ligne, B2.nom_long, B2.ligne, C2.nom_long, C2.ligne, D.nom_long \n" +
                             "FROM bus as A, bus as B1, bus as B2, bus as C1, bus as C2, bus as D \n" +
@@ -596,7 +596,7 @@ public class App extends JFrame implements ActionListener {
             }
         } else {
             if (changes >= 1) {
-                try (Connection connection = DriverManager.getConnection("jdbc:mysql://35.170.202.167:3306/citymapper", "citymapper", "12345678");
+                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/dakar_mapper", "root", "12345678");
                      Statement statement = connection.createStatement()) {
                     String query = "SELECT DISTINCT A.nom_long, A.ligne, B.nom_long " +
                             "FROM bus as A, bus as B " +
@@ -632,7 +632,7 @@ public class App extends JFrame implements ActionListener {
             }
 
             if (changes >= 2) {
-                try (Connection connection = DriverManager.getConnection("jdbc:mysql://35.170.202.167:3306/citymapper", "citymapper", "12345678");
+                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/dakar_mapper", "root", "12345678");
                      Statement statement = connection.createStatement()) {
                     String query2 = "SELECT distinct A.nom_long, A.ligne, B.nom_long, C.ligne,  D.nom_long \n" +
                             "FROM bus as A, bus as B, bus as C, bus as D\n" +
@@ -672,7 +672,7 @@ public class App extends JFrame implements ActionListener {
             }
 
             if (changes >= 3) {
-                try (Connection connection = DriverManager.getConnection("jdbc:mysql://35.170.202.167:3306/citymapper", "citymapper", "12345678");
+                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/dakar_mapper", "root", "12345678");
                      Statement statement = connection.createStatement()) {
                     String query3 = "SELECT distinct A.nom_long, A.ligne, B2.nom_long, B2.ligne, C2.nom_long, C2.ligne, D.nom_long \n" +
                             "FROM bus as A, bus as B1, bus as B2, bus as C1, bus as C2, bus as D \n" +
