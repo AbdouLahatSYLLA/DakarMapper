@@ -54,7 +54,7 @@ Pour utiliser  Dakarmapper, suivez ces étapes d'installation :
 1. Clonez ce dépôt sur votre ordinateur local :
 
    ```bash
-   git clone https://github.com/votre-utilisateur/citymapper-dakar.git
+   git clone https://github.com/AbdouLahatSYLLA/DakarMapper
    cd citymapper
    ```
 
