@@ -20,6 +20,14 @@ import org.jxmapviewer.viewer.Waypoint;
 import org.jxmapviewer.viewer.WaypointPainter;
 
 
+/*
+ * @author     Abdou Lahat SYLLA
+ * @version    1.0
+ * @since      August 2023
+ */
+
+
+
 
 public class MapViewer extends JPanel {
 

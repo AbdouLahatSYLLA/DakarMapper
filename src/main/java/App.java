@@ -13,7 +13,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/*
+        * @author     Abdou Lahat SYLLA
+        * @version    1.0
+        * @since      August 2023
+*/
 
 public class App extends JFrame implements ActionListener {
 
@@ -103,9 +107,6 @@ public class App extends JFrame implements ActionListener {
             String changeStop1 ;
 
             String changeStop2 ;
-
-
-
             String line ;
             String line1 ;
 

@@ -10,6 +10,12 @@ import org.jxmapviewer.viewer.GeoPosition;
 /**
  * Paints a route on the map
  */
+
+/*
+ * @author     Abdou Lahat SYLLA (j'ai juste apporté des modification mais j'ai pas rediger le code completement)
+ * @version    1.0
+ * @since      August 2023
+ */
 public class RoutePainter implements Painter<JXMapViewer> {
     private Color color = Color.BLUE;
     private boolean antiAlias = true;
