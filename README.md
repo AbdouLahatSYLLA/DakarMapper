@@ -79,7 +79,8 @@ cliquer sur la map pour choisir un point de depart et un point d'arriver ou choi
 
 ## Contribuer
 
-Nous encourageons les contributions à CityMapper Dakar.
+Nous encourageons les contributions à DakarMapper.
+Obtention des données GTFS complete aiderait à aller encore plus loin avec la possiblité de tracer les bus et d'obtenir les itineraires et horaires en temps reels. 
 
 ## Licence
 
