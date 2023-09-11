@@ -41,22 +41,23 @@ offrant ainsi une expérience de transport plus fluide aux résidents et aux vis
 
 ## Installation
 
-Pour utiliser CityMapper Dakar, suivez ces étapes d'installation :
+Pour utiliser  Dakarmapper, suivez ces étapes d'installation :
 
 1. Clonez ce dépôt sur votre ordinateur local :
 
    ```bash
    git clone https://github.com/votre-utilisateur/citymapper-dakar.git
-   cd citymapper-dakar
+   cd citymapper
    ```
 
 2. creer une base de données mysql dans votre pc :
-    ``` CREATE DATABASE dakar_mapper ; ```
+   ```CREATE DATABASE dakar_mapper ; ```
    ```SOURCE schema_sql/data/table.sql```
    ```SOURCE schema_sql/data/bus.sql ```
    ```SOURCE schema_sql/data/bon_stop_loc_aftu.sql ```
    ```SOURCE schema_sql/data/bon_stop_loc_ddd.sql ```
-        
+
+
    
 
 ## Utilisation
@@ -64,6 +65,9 @@ Pour utiliser CityMapper Dakar, suivez ces étapes d'installation :
 Pour utiliser CityMapper Dakar, exécutez la commande suivante :
 
 charger le projet avec intelliJ et executer l'application : App.java
+
+cliquer sur la map pour choisir un point de depart et un point d'arriver ou choisir depuis les fromBoxe et toBoxe ensuite choisir le fournisseur de transport 'DDD' ou 'AFTU' ou   
+   'YEUP' comme All pour designer tous les fournisseurs. Ensuite choisir le nombre de changement et cliquer sur 'GO' pour obtenir les itinéraires. En cliquant sur l'un des itinéraire on obtient le tracé de itineraire.
 
 ## Contribuer
 
